@@ -49,6 +49,8 @@ kind: "package-reference"
 
 Client 查询在 `clientInspectTimeoutMs` 内接受首个有效页面响应。某个页面失败不会阻止其他页面成功回答。若没有有效结果，查询返回首个 Client 错误或输出校验诊断；若没有页面回答，则提示调用方打开或重新连接 Harness 页面后重试。取消和注册表卸载也会结束待处理查询。页面重连不会重放错过的请求，因此需在连接恢复后重试。Host 查询不受此超时影响。
 
+Client 回复通过待处理请求的 Agent 标识匹配，无需激活或恢复其 Session。因此，由 subagent 路由管理的 Creator 子代理也能接收回复。Remote 访问控制仍检查对应 Session，标识不匹配或已过期的请求会被拒绝。
+
 ### run 会做什么
 
 程序调用方使用 `define`、`run`、`stop` 和 `undefine`；浏览器面板操作已有定义。仅含 Host 的包在本进程激活。带浏览器部分的包等待审批或取消，批准后先加载 Host 再加载 Client。`mode: "run"` 启动当前版本，`mode: "update"` 替换版本。Stop 释放运行中的 effect 并保留定义；undefine 还会移除定义。

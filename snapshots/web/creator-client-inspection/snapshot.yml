@@ -1,0 +1,9 @@
+version: 1
+scenario: creator-client-inspection
+profile: web
+composition: web-default
+recording: authored
+header:
+  class: web-default
+  childSystemPrompts: [1]
+  childToolSchemas: [1]

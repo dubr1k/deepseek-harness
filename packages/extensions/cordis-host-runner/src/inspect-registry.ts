@@ -3,6 +3,7 @@
 import { Service } from '@deepseek-ai/cordis'
 import type { Context } from '@deepseek-ai/cordis'
 import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import type {} from '@deepseek-ai/dsh-api-gateway'
 import { snapshotJsonValue, type JsonValue } from '@deepseek-ai/dsh-util-values'
 import { assertSupportedJsonSchema, validateJsonSchemaValue } from '@deepseek-ai/dsh-tools'
@@ -139,18 +140,18 @@ export class CordisInspectRegistryService extends Service {
 
   /**
    * Accept the first valid Client response for a pending query.
-   * @param agent - Agent whose Session owns the query.
+   * @param agentId - identity captured by the pending query; no Agent activation is required.
    * @param requestId - Pending Client query identity.
    * @param resolution - Client provider result or failure.
    * @returns acknowledgement with accepted true only for a success that settles the query; only the first failure diagnostic is retained.
    */
   resolveClientQuery(
-    agent: Agent,
+    agentId: SessionId,
     requestId: CordisInspectRequestId,
     resolution: CordisInspectQueryResolution,
   ): CordisInspectResolveAck {
     const pending = this.pending.get(requestId)
-    if (pending === undefined || pending.request.agentId !== agent.id) return { accepted: false }
+    if (pending === undefined || pending.request.agentId !== agentId) return { accepted: false }
     // A failed page must not prevent another page from supplying a valid result.
     if (!resolution.ok) {
       pending.failure ??= `${resolution.reason}: ${resolution.message}`

@@ -8,6 +8,7 @@ import { Context } from '@deepseek-ai/cordis'
 import type { Fiber } from '@deepseek-ai/cordis'
 import z from '@deepseek-ai/schemastery'
 import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { createUserMessage } from '@deepseek-ai/dsh-llm'
 declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
@@ -520,19 +521,19 @@ export class DynamicCordisRunnerService extends TypertRemoteService {
 
   /**
    * Submit a Client inspect result or failure for a pending query.
-   * @param agent - Session that owns the query.
+   * @param agentId - identity captured by the pending query, including a Creator child.
    * @param requestId - exact pending query identity.
    * @param resolution - provider result or structured refusal.
    * @returns acknowledgement with accepted true only for a valid success that settles the query;
    * pending-query failures return { accepted: false } and retain only the first diagnostic.
    */
-  @Remote('resolveInspectQuery')
+  @Remote({ name: 'resolveInspectQuery', resources: { session: agentId => agentId } })
   resolveInspectQuery(
-    agent: Agent,
+    agentId: SessionId,
     requestId: CordisInspectRequestId,
     resolution: CordisInspectQueryResolution,
   ): CordisInspectResolveAck {
-    return this.inspectRegistry.resolveClientQuery(agent, requestId, resolution)
+    return this.inspectRegistry.resolveClientQuery(agentId, requestId, resolution)
   }
 
   /**

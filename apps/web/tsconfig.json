@@ -70,6 +70,7 @@
     "tests/message-feedback-protocol.snapshot.ts",
     "tests/preset-migration.snapshot.ts",
     "tests/subagent-fork-schedule.snapshot.ts",
+    "tests/creator-client-inspection.snapshot.ts",
     "tests/live-interactions.e2e.ts",
     "tests/question-composer.e2e.ts",
     "tests/question-composer-recommended.e2e.ts",
