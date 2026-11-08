@@ -1,0 +1,41 @@
+{
+  "desktop": "0.2.2-rc.1",
+  "codex_commit": "3343d6f9409fe704270bd7ac1d644deb3b278316",
+  "native_dsh_roles": {
+    "gpt-6-luna": {
+      "provider": "openai-codex",
+      "answer": "ГОТОВ",
+      "tool_calls": 0,
+      "completed": true
+    },
+    "gpt-5.6-terra": {
+      "provider": "openai-codex",
+      "answer": "ГОТОВ",
+      "tool_calls": 1,
+      "completed": true
+    },
+    "gpt-6.1-sol": {
+      "provider": "openai-codex",
+      "answer": "ГОТОВ",
+      "tool_calls": 1,
+      "completed": true
+    },
+    "gpt-6-astra": {
+      "provider": "openai-codex",
+      "answer": "ГОТОВ",
+      "tool_calls": 1,
+      "completed": true
+    }
+  },
+  "firecrawl": "real MCP scrape https://www.wikipedia.org/ returned HTTP 200",
+  "graphify": "DSH skill loaded; native tool executed graphify --version => 0.9.95",
+  "offline_tests": {
+    "files": 29,
+    "passed": 478
+  },
+  "limitations": [
+    "Graphify extraction was not requested or tested",
+    "Priority processing remains backend dependent",
+    "Cold nonresident historical child Fast controls not confirmed"
+  ]
+}
