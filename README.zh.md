@@ -8,6 +8,12 @@ DeepSeek Harness（`dsh`）是由 [DeepSeek AI](https://deepseek.com) 开发的�
 
 文档：[https://deepseek-harness.github.io/deepseek-harness/](https://deepseek-harness.github.io/deepseek-harness/)
 
+## 我们的 macOS 构建
+
+此 fork 提供 **stable-2026.11.11-1**，用于 macOS ARM64 上原始签名版 **DSH Desktop 0.2.2-rc.1** 的固定集成套件。它包含我们的 Codex 登录、Fast、配额和图像更新，在聊天中创建和编辑图像并逐次选择模型、尺寸和质量，以及原生 agent 角色、Workspace tools、Project Passport、Task templates、Firecrawl MCP 和 Graphify 技能。“Stable” 标识此集成套件；上游 DSH 仍为开发者预览版。
+
+安装说明见 [local-distribution/README.ru.md](local-distribution/README.ru.md)（俄文构建说明）。组件固定版本见 [versions.json](local-distribution/versions.json)。图像尺寸是请求参数，后端可能返回不同尺寸。下方源码启动说明描述上游 DSH，不会安装此 Desktop 套件。
+
 ## 开发者预览
 
 DeepSeek Harness 处于 _开发者预览_ 阶段，正在快速迭代。**未来将出现破坏兼容性的变更。**

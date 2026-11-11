@@ -1,4 +1,5 @@
 {
+  "scope": "Historical base-kit acceptance, before the 2026-11-11 image updates; not rerun for this build",
   "desktop": "0.2.2-rc.1",
   "codex_commit": "3343d6f9409fe704270bd7ac1d644deb3b278316",
   "native_dsh_roles": {

@@ -1,0 +1,11 @@
+{
+  "name": "@dsh-local/view-fdb987b9-a0c5-4c5a-95a7-cb6447e1e59b",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local task template library with parameter preview and copying.",
+  "exports": {".": "./dist/index.js", "./client": "./dist/client.js", "./locale/*.json": "./locale/*.json", "./icon": "./icon.svg"},
+  "files": ["dist", "cordis.patch.yml", "locale/*.json", "icon.svg"],
+  "scripts": {"build": "node build.mjs", "test": "node --test test.mjs"},
+  "dsh": {"bundle": {"patch": "./cordis.patch.yml"}, "client": {"platform": "web", "immediately": true, "inject": []}}
+}

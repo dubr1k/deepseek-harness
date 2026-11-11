@@ -1,0 +1,90 @@
+{
+  "release": "stable-2026.11.11-1",
+  "platform": "macOS ARM64",
+  "desktop": "0.2.2-rc.1",
+  "desktopKind": "original signed upstream app",
+  "upstreamSource": "https://github.com/deepseek-ai/deepseek-harness",
+  "codex": {
+    "version": "0.3.4-rc.3",
+    "commit": "8635827af6ed44957a7afae35d2bb3e011799228",
+    "source": "sources/dsh-codex-auth-8635827af6ed.tar.gz",
+    "package": "payload/dsh-codex-auth-0.3.4-rc.3-8635827af6ed.tgz",
+    "repository": "https://github.com/dubr1k/dsh-codex-auth",
+    "sha256": "0432d6d9f8685b3e071b7ea6c9388f96eb68f9ea4dddfe4bd17d3d01167de51d"
+  },
+  "plugins": [
+    {
+      "directory": "project-passport",
+      "name": "@dsh-local/view-16f6f54d-d6b2-4f85-81f1-515c5a10dc8b",
+      "version": "1.0.7"
+    },
+    {
+      "directory": "workspace-tools",
+      "name": "@dsh-local/dsh-workflow-tools",
+      "version": "1.0.3"
+    },
+    {
+      "directory": "task-templates",
+      "name": "@dsh-local/view-fdb987b9-a0c5-4c5a-95a7-cb6447e1e59b",
+      "version": "1.0.0"
+    },
+    {
+      "directory": "creator-inspect-hotfix",
+      "name": "dsh-creator-inspect-hotfix",
+      "version": "0.2.2-rc.1-fix.2"
+    }
+  ],
+  "graphify": {
+    "version": "0.9.104",
+    "integration": "native DSH skill + local CLI; not an MCP server",
+    "skill": "payload/graphify",
+    "package": "graphifyy",
+    "semanticProvider": {
+      "name": "openrouter",
+      "base_url": "https://openrouter.ai/api/v1",
+      "default_model": "google/gemini-3.8-flash",
+      "env_key": "OPENROUTER_API_KEY",
+      "temperature": 0,
+      "vision": true
+    },
+    "providerTemplate": "payload/graphify/openrouter-provider.example.json",
+    "credential": "local OPENROUTER_API_KEY; secret file excluded",
+    "mcpConnectedInDsh": false
+  },
+  "firecrawl": {
+    "integration": "MCP stdio",
+    "configuration": "import existing ~/.codex/config.toml mcp_servers.firecrawl locally; never publish credentials"
+  },
+  "openDesign": {
+    "integration": "optional existing MCP stdio launcher",
+    "configuration": "payload/open-design.json; OPEN_DESIGN_CLI overrides local path",
+    "acceptance": "configuration captured; fresh end-to-end check not repeated"
+  },
+  "baseDmg": {
+    "filename": "DSH-Codex-0.2.2-rc.1-mac-arm64-kit.dmg",
+    "sha256": "440ac95b2ae1084f1be40e3b732fc41fdec3217e4f785dd5f09d16ae3bc71aa3",
+    "originalUrl": "https://github.com/dubr1k/deepseek-harness/releases/download/codex-kit-2026.11.08/DSH-Codex-0.2.2-rc.1-mac-arm64-kit.dmg"
+  },
+  "skillsInventory": [
+    "akademicheskoe-issledovanie",
+    "dsh-verification",
+    "dsh-debugging-tdd",
+    "progressive-hint-ladder",
+    "spaced-practice-scheduler",
+    "criterion-referenced-rubric-generator",
+    "deep-research",
+    "akademicheskii-retsenzent",
+    "academic-paper",
+    "explicit-instruction-sequence-builder",
+    "dsh-design-planning",
+    "academic-pipeline",
+    "akademicheskii-konveer",
+    "dsh-code-review",
+    "graphify",
+    "akademicheskaya-statya",
+    "academic-paper-reviewer",
+    "retrieval-practice-generator"
+  ],
+  "distributionRepository": "https://github.com/dubr1k/deepseek-harness/tree/release/codex-integrations/local-distribution",
+  "sourceBase": "fix/creator-client-inspection"
+}

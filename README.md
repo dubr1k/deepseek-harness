@@ -8,6 +8,12 @@ It is built on an **everything-is-a-plugin** architecture and powered by [Cordis
 
 Documentation: [https://deepseek-harness.github.io/deepseek-harness/](https://deepseek-harness.github.io/deepseek-harness/)
 
+## Our macOS build
+
+This fork ships **stable-2026.11.11-1**, our pinned integration kit for the original signed **DSH Desktop 0.2.2-rc.1** on macOS ARM64. It includes our Codex login/Fast/quota and image updates, in-chat image creation/editing with per-request model, size and quality controls, native agent roles, Workspace tools, Project Passport, Task templates, Firecrawl MCP and the Graphify skill. “Stable” identifies this integration kit; upstream DSH remains a developer preview.
+
+Install from [local-distribution/README.ru.md](local-distribution/README.ru.md) (Русское описание сборки). Exact component pins are in [versions.json](local-distribution/versions.json). Image sizes are requests: the backend may return different dimensions. The source-launch instructions below describe upstream DSH and do not install this Desktop kit.
+
 ## Developer preview
 
 DeepSeek Harness is in _developer preview_ and iterating rapidly. **THERE WILL BE COMPATIBILITY-BREAKING CHANGES.**

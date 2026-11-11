@@ -1,0 +1,23 @@
+{
+  "id": "mcp-open-design",
+  "name": "@deepseek-ai/dsh-mcp-client",
+  "config": {
+    "transport": "stdio",
+    "serverName": "open-design",
+    "env": {
+      "OD_CALLER_AGENT": "deepseek-harness"
+    },
+    "command": "<LOCAL_OPEN_DESIGN_CLI>",
+    "args": [
+      "mcp"
+    ],
+    "toolCallTimeoutMs": 60000,
+    "failOnStartupError": false,
+    "reconnect": {
+      "enabled": true,
+      "initialDelayMs": 1000,
+      "maxDelayMs": 30000,
+      "maxAttempts": 10
+    }
+  }
+}

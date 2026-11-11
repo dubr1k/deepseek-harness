@@ -1,1 +1,12 @@
-payload/*.tgz
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+artifacts/
+private/
+
+# The portable hotfix ships its runtime; other build directories stay ignored.
+!plugins/creator-inspect-hotfix/lib/
+!plugins/creator-inspect-hotfix/lib/**
+*.tsbuildinfo

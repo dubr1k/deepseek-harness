@@ -1,0 +1,5 @@
+- id: cordis-host-runner
+  disabled: true
+- insert:
+    - id: dsh-creator-inspect-hotfix:runner
+      name: dsh-creator-inspect-hotfix

@@ -1,0 +1,35 @@
+{
+  "build": "stable-2026.11.11-1",
+  "desktop": "0.2.2-rc.1",
+  "codexCommit": "8635827af6ed44957a7afae35d2bb3e011799228",
+  "evidenceDate": "2026-11-11",
+  "priorSameSessionChecks": [
+    "57 focused image/settings/client tests passed before the final button-only adjustment",
+    "Final button-only adjustment: 3 image request panel tests, typecheck, lint and package build passed",
+    "Installed Desktop: image creation at Flare/Low returned 1024x1536; editing an existing image returned a visible image",
+    "Desktop inspected: compact Create image, Handoff and Pre-commit review buttons"
+  ],
+  "sizeProbes": {
+    "Flare 1152x768": "returned 1536x1024",
+    "Flare 3840x2160": "returned 1536x1024"
+  },
+  "currentDistributionChecks": [
+    "node --check local-distribution/configure.mjs: passed",
+    "node --test local-distribution/tests/*.test.mjs: 2 passed",
+    "Workspace tools: npm test (13 passed), npm run build passed",
+    "Codex: pnpm pack rebuilt production artifacts successfully",
+    "Project Passport: npm test, 10 passed",
+    "Task templates: npm test, 5 passed",
+    "doc-sync: 40 checks passed initially; 3 failing checks corrected and passed on targeted rerun",
+    "Staged oxlint check passed",
+    "Codex package production entries match the built plugin; source archive matches the pinned commit",
+    "Workspace tools source/client bundle match the active maintained source"
+  ],
+  "notRevalidated": [
+    "Clean-machine full install",
+    "Graphify semantic extraction",
+    "OpenDesign end-to-end",
+    "All image model/size/quality combinations",
+    "Independent narrow/light theme matrix"
+  ]
+}

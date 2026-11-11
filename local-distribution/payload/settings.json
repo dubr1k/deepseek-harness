@@ -1,0 +1,50 @@
+[
+  {
+    "id": "agent-default-model",
+    "name": "@deepseek-ai/dsh-agent-default-model",
+    "config": {
+      "provider": "openai-codex",
+      "model": "gpt-6.1-sol"
+    }
+  },
+  {
+    "id": "web",
+    "config": {
+      "searchProvider": "deepseek-official",
+      "fetchProvider": "http"
+    }
+  },
+  {
+    "id": "codex-search",
+    "disabled": true
+  },
+  {
+    "id": "codex-image",
+    "disabled": false
+  },
+  {
+    "id": "subagent",
+    "name": "@deepseek-ai/dsh-subagent",
+    "config": {
+      "maxDepth": 1,
+      "maxActiveSubagents": 8
+    }
+  },
+  {
+    "id": "llm-codex-auth",
+    "config": {
+      "excludedModelIds": [
+        "gpt-5.3-codex-spark",
+        "gpt-5.5"
+      ],
+      "longContextEnabled": true
+    }
+  },
+  {
+    "id": "locale",
+    "name": "@deepseek-ai/dsh-client-locale",
+    "config": {
+      "preference": "en"
+    }
+  }
+]

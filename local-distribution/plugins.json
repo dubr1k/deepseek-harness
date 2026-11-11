@@ -1,0 +1,22 @@
+[
+  {
+    "directory": "project-passport",
+    "name": "@dsh-local/view-16f6f54d-d6b2-4f85-81f1-515c5a10dc8b",
+    "version": "1.0.7"
+  },
+  {
+    "directory": "workspace-tools",
+    "name": "@dsh-local/dsh-workflow-tools",
+    "version": "1.0.3"
+  },
+  {
+    "directory": "task-templates",
+    "name": "@dsh-local/view-fdb987b9-a0c5-4c5a-95a7-cb6447e1e59b",
+    "version": "1.0.0"
+  },
+  {
+    "directory": "creator-inspect-hotfix",
+    "name": "dsh-creator-inspect-hotfix",
+    "version": "0.2.2-rc.1-fix.2"
+  }
+]
