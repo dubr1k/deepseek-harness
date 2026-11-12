@@ -43,13 +43,13 @@ try {
  const python=path.join(resources,'runtime/primary-runtime/dependencies/python/bin/python3.12');
  const codex=path.join(os.homedir(),'.codex/config.toml');
  if(fs.existsSync(codex)) {
-  const config=JSON.parse(execFileSync(python,['-c',"import tomllib,json,sys;print(json.dumps(tomllib.load(open(sys.argv[1],'rb')).get('mcp_servers',{}).get('firecrawl',{})))",codex],{encoding:'utf8'}));
+  const config=JSON.parse(execFileSync(python,['-B','-c',"import tomllib,json,sys;print(json.dumps(tomllib.load(open(sys.argv[1],'rb')).get('mcp_servers',{}).get('firecrawl',{})))",codex],{encoding:'utf8'}));
   if(config.command){const node='/opt/homebrew/opt/node@24/bin';
    const launcher=path.join(plugin,'firecrawl.py');const secret=path.join(plugin,'firecrawl.json');
    fs.writeFileSync(secret,JSON.stringify(config),{mode:0o600});
    fs.writeFileSync(launcher,`import os,json,shutil\nfrom pathlib import Path\nc=json.loads(Path(__file__).with_name('firecrawl.json').read_text())\nos.environ.update(c.get('env',{}))\nos.environ['PATH']='${node}:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin'\ncmd=shutil.which(c['command'])\nif not cmd: raise RuntimeError('Firecrawl executable missing')\nos.execv(cmd,[cmd,*c.get('args',[])])\n`,{mode:0o700});
    for(const entry of next) if(entry.insert) entry.insert=entry.insert.filter(v=>v.id!=='mcp-firecrawl');
-   next.push({insert:[{id:'mcp-firecrawl',name:'@deepseek-ai/dsh-mcp-client',config:{transport:'stdio',serverName:'firecrawl',command:python,args:[launcher],startupTimeoutMs:120000,toolCallTimeoutMs:120000}}]});
+   next.push({insert:[{id:'mcp-firecrawl',name:'@deepseek-ai/dsh-mcp-client',config:{transport:'stdio',serverName:'firecrawl',command:python,args:['-B',launcher],startupTimeoutMs:120000,toolCallTimeoutMs:120000}}]});
   }
  }
  const design=JSON.parse(fs.readFileSync(path.join(payload,'open-design.json'),'utf8'));

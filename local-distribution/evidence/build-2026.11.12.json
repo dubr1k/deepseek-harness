@@ -70,6 +70,7 @@
     "openDesign": "Actual Desktop MCP status succeeded and reported authenticated; no project data read or changed",
     "graphify": "Guarded graphify --version returned 0.9.104; installed skill equals kit payload; explicit OpenRouter route retained",
     "images": "Actual Desktop generated red circle and edited selected reference into blue circle; gallery displayed both results. Flare/Low requested 1024x1024 but backend returned 1536x1024; actual dimensions and warning displayed",
-    "panels": "Task templates, Project Passport, Workspace tools and per-image controls rendered in Desktop rc.2"
+    "panels": "Task templates and Workspace tools rendered; Project Passport read the temporary AGENTS.md and showed its source lines and check command.",
+    "signedApplication": "Original ZIP checksum and vendor signature verified. Installer and Firecrawl launcher use Python -B to preserve sealed bytecode caches. Signature reverified after corrected installation and Desktop restart; no resigning."
   }
 }
