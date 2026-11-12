@@ -4,7 +4,7 @@ import os from 'node:os';
 import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
 import {execFileSync} from 'node:child_process';
-import {installLocalPlugins, mergeSettings} from './install-local-plugins.mjs';
+import {installLocalPlugins, mergeSettings, retireExternalCodexRunner} from './install-local-plugins.mjs';
 const app='/Applications/DeepSeek Harness.app';
 const executable=path.join(app,'Contents/MacOS/DeepSeek Harness');
 const resources=path.join(app,'Contents/Resources');
@@ -30,6 +30,7 @@ try {
  const role=path.join(profile,'created-plugins/dsh-codex-role-compat');fs.cpSync(path.join(payload,'dsh-codex-role-compat'),role,{recursive:true});
  const manifestFile=path.join(profile,'package.json');const manifest=JSON.parse(fs.readFileSync(manifestFile,'utf8'));
  manifest.dependencies??={};manifest.dependencies['dsh-codex-auth']=`file:${archive}`;manifest.dependencies['dsh-codex-role-compat']='link:./created-plugins/dsh-codex-role-compat';
+ retireExternalCodexRunner(manifest);
  installLocalPlugins(base,profile,manifest);
  const bundles=manifest.dsh.profile.bundles; if(!bundles.includes('dsh-codex-auth'))bundles.push('dsh-codex-auth');
  manifest.dsh.profile.bundles=bundles.filter(x=>x!=='@deepseek-ai/dsh-subagent-codex');

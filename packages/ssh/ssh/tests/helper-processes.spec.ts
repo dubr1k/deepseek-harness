@@ -1,7 +1,7 @@
 /** Process reservations retain native cleanup ownership across stream and allocation failures. */
 import { once } from 'node:events'
-import { chmod, mkdir, mkdtemp, readdir, rm } from 'node:fs/promises'
-import { createConnection, type Socket } from 'node:net'
+import { chmod, mkdtemp, readdir, rm } from 'node:fs/promises'
+import { createConnection, Server, type Socket } from 'node:net'
 import { PassThrough } from 'node:stream'
 import { Context } from '@deepseek-ai/cordis'
 import type { SubprocessHandle, SubprocessOutcome, SubprocessTerminalHandle } from '@deepseek-ai/dsh-subprocess'
@@ -198,14 +198,20 @@ describe.skipIf(process.platform === 'win32')('SSH helper process settlement', (
     } finally { await test.close() }
   })
 
-  it('rolls back a listener path that exceeds the operating system socket limit', async () => {
-    const root = await mkdtemp('/tmp/dsh-ssh-long-')
-    const longRoot = `${root}/${'x'.repeat(140)}`
-    await mkdir(longRoot)
-    const owner = new RemoteProcesses(new Context(), longRoot, 1, 5000)
+  it('rolls back a reservation when its listener cannot bind', async () => {
+    const test = await harness()
+    // Socket path limits vary across Node/libuv releases; inject the owned bind failure.
+    const listen = vi.spyOn(Server.prototype, 'listen').mockImplementationOnce(() => {
+      throw Object.assign(new Error('listener path too long'), { code: 'ENAMETOOLONG' })
+    })
     try {
-      await expect(owner.prepare(ordinaryRequest)).rejects.toThrow()
-    } finally { await owner.close(); await rm(root, { recursive: true, force: true }) }
+      await expect(test.owner.prepare(ordinaryRequest)).rejects.toThrow('listener path too long')
+      expect(await readdir(test.root)).toEqual([])
+      listen.mockRestore()
+      const run = await test.owner.prepare(ordinaryRequest)
+      await test.owner.terminate(run.id)
+      expect(await readdir(test.root)).toEqual([])
+    } finally { listen.mockRestore(); await test.close() }
   })
 
   it('continues collecting while a live snapshot waits for acknowledgement', async () => {

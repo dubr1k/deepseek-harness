@@ -30,3 +30,14 @@ export function mergeSettings(current, settings) {
   }
   return result;
 }
+
+/**
+ * Remove the retired external runner whose peers shadow the signed Desktop runtime.
+ * @param manifest - target profile manifest; unrelated dependencies and bundles are retained.
+ * @returns the same manifest after removing the external runner.
+ */
+export function retireExternalCodexRunner(manifest) {
+  delete manifest.dependencies?.['@deepseek-ai/dsh-subagent-codex'];
+  if (manifest.dsh?.profile?.bundles) manifest.dsh.profile.bundles = manifest.dsh.profile.bundles.filter(name => name !== '@deepseek-ai/dsh-subagent-codex');
+  return manifest;
+}

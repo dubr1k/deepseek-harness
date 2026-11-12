@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { installLocalPlugins, mergeSettings } from '../install-local-plugins.mjs';
+import { installLocalPlugins, mergeSettings, retireExternalCodexRunner } from '../install-local-plugins.mjs';
 
 const base = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 test('portable bundles resolve from a fresh profile and preserve unrelated packages', () => {
@@ -35,4 +35,12 @@ test('settings merge preserves unrelated user settings and is idempotent', () =>
   assert.deepEqual(result.find(x => x.id === 'other'), before[1]);
   assert.deepEqual(mergeSettings(result, settings), result);
   assert.equal(before[0].config.maxDepth, 9);
+});
+
+test('retiring the external Codex runner preserves unrelated packages and native role bundles', () => {
+  const manifest = { dependencies: { '@deepseek-ai/dsh-subagent-codex':'0.2.2-rc.1', 'dsh-codex-auth':'file:codex.tgz', existing:'1.2.3' }, dsh: { profile: { bundles: ['existing','@deepseek-ai/dsh-subagent-codex','dsh-codex-auth'] } } };
+  retireExternalCodexRunner(manifest);
+  retireExternalCodexRunner(manifest);
+  assert.deepEqual(manifest.dependencies, { 'dsh-codex-auth':'file:codex.tgz', existing:'1.2.3' });
+  assert.deepEqual(manifest.dsh.profile.bundles, ['existing','dsh-codex-auth']);
 });
