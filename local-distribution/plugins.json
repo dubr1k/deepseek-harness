@@ -7,7 +7,7 @@
   {
     "directory": "workspace-tools",
     "name": "@dsh-local/dsh-workflow-tools",
-    "version": "1.0.3"
+    "version": "1.0.4"
   },
   {
     "directory": "task-templates",
@@ -17,6 +17,6 @@
   {
     "directory": "creator-inspect-hotfix",
     "name": "dsh-creator-inspect-hotfix",
-    "version": "0.2.2-rc.1-fix.2"
+    "version": "0.2.2-rc.2-fix.1"
   }
 ]

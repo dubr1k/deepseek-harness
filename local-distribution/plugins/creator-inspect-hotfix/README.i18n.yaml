@@ -3,5 +3,5 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write local-distribution/plugins/creator-inspect-hotfix/README.md
 /creator-inspect-hotfix:
-  en: e923060f5589d9ce
-  zh: c966f5206b348a94
+  en: 55c21e12cf543576
+  zh: 1e5aae0b3a5d9050

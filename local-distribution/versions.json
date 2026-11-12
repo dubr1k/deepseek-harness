@@ -1,16 +1,16 @@
 {
-  "release": "stable-2026.11.11-1",
+  "release": "stable-2026.11.12-1",
   "platform": "macOS ARM64",
-  "desktop": "0.2.2-rc.1",
+  "desktop": "0.2.2-rc.2",
   "desktopKind": "original signed upstream app",
   "upstreamSource": "https://github.com/deepseek-ai/deepseek-harness",
   "codex": {
     "version": "0.3.4-rc.3",
-    "commit": "8635827af6ed44957a7afae35d2bb3e011799228",
-    "source": "sources/dsh-codex-auth-8635827af6ed.tar.gz",
-    "package": "payload/dsh-codex-auth-0.3.4-rc.3-8635827af6ed.tgz",
+    "commit": "16b190656e65a202028334149ea1d42736b48767",
+    "source": "sources/dsh-codex-auth-16b190656e65.tar.gz",
+    "package": "payload/dsh-codex-auth-0.3.4-rc.3-16b190656e65.tgz",
     "repository": "https://github.com/dubr1k/dsh-codex-auth",
-    "sha256": "0432d6d9f8685b3e071b7ea6c9388f96eb68f9ea4dddfe4bd17d3d01167de51d"
+    "sha256": "7d7503e04239fb8e3b24cd81172cef7c13c1ab07bbc0f7c8c44d1fb0ef2f1c55"
   },
   "plugins": [
     {
@@ -21,7 +21,7 @@
     {
       "directory": "workspace-tools",
       "name": "@dsh-local/dsh-workflow-tools",
-      "version": "1.0.3"
+      "version": "1.0.4"
     },
     {
       "directory": "task-templates",
@@ -31,7 +31,7 @@
     {
       "directory": "creator-inspect-hotfix",
       "name": "dsh-creator-inspect-hotfix",
-      "version": "0.2.2-rc.1-fix.2"
+      "version": "0.2.2-rc.2-fix.1"
     }
   ],
   "graphify": {
@@ -58,12 +58,7 @@
   "openDesign": {
     "integration": "optional existing MCP stdio launcher",
     "configuration": "payload/open-design.json; OPEN_DESIGN_CLI overrides local path",
-    "acceptance": "configuration captured; fresh end-to-end check not repeated"
-  },
-  "baseDmg": {
-    "filename": "DSH-Codex-0.2.2-rc.1-mac-arm64-kit.dmg",
-    "sha256": "440ac95b2ae1084f1be40e3b732fc41fdec3217e4f785dd5f09d16ae3bc71aa3",
-    "originalUrl": "https://github.com/dubr1k/deepseek-harness/releases/download/codex-kit-2026.11.08/DSH-Codex-0.2.2-rc.1-mac-arm64-kit.dmg"
+    "acceptance": "Desktop rc.2 MCP authentication status succeeded; project operations not exercised"
   },
   "skillsInventory": [
     "akademicheskoe-issledovanie",
@@ -86,5 +81,12 @@
     "retrieval-practice-generator"
   ],
   "distributionRepository": "https://github.com/dubr1k/deepseek-harness/tree/release/codex-integrations/local-distribution",
-  "sourceBase": "fix/creator-client-inspection"
+  "sourceBase": "upstream/master",
+  "baseArchive": {
+    "filename": "deepseek-harness-0.2.2-rc.2-mac-arm64.zip",
+    "originalUrl": "https://download.deepseek.com/dsh-desk/bin/mac-arm64/deepseek-harness-0.2.2-rc.2-mac-arm64.zip",
+    "sha512Base64": "SAKrGOp6y3vla/r7QG6hP+y3LfHeRKS3xQ+lxFBuiF7ezSt+dqkCedm9znqKqr7akCkLgag0GnC+yZhkAWL/+Q==",
+    "signature": "codesign --verify --deep --strict passed"
+  },
+  "upstreamReleaseTag": "dsh-v0.2.2-rc.2"
 }

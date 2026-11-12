@@ -33,7 +33,7 @@ function host(root, events = []) {
     workspaceRegistry: { get: id => id === 'p' ? { id, title: 'Fixture', path: root } : undefined, list: () => [{ id: 'p', title:'Fixture',path:root }] },
     sessionQuery: { observeSession: async id => ({ header: { id, cwd: root }, events, [Symbol.dispose]() {} }), filterSessions: async () => [{ header:{id:'root-session',cwd:root},live:true }] },
     sessionController: { state: async () => ({ active:true,running:false }) }, agents: { get: id => agents.get(id) },
-    subagents: { interrupt: (id, authority) => interrupted.push({id,authority}) },
+    subagents: { resolveName: async (caller, name) => { assert.equal(caller, parent); assert.equal(name, 'native-reviewer'); return 'native-child'; }, interrupt: (id, authority) => interrupted.push({id,authority}) },
     tools: { executable: (_name, scope) => { assert.equal(scope, parent); return {}; }, execute: async () => { throw new Error('Native reviewer unit adapter not installed.'); } },
     shell: { resolve: spec => spec, execute: async spec => ({ result: () => new Promise(resolve => {
       const start = Date.now();
@@ -55,7 +55,7 @@ function nativeAdapter(h, onStart) {
     h.agents.set(child.id,child);
     const info = {id:child.id,runId:'native-run',local:true,provider:'configured-native'};
     h.engine.childStarted(info); await onStart?.(info);
-    return {results:[{result:{isError:false,value:{subagentId:child.id}}}]};
+    return {results:[{result:{isError:false,value:{kind:'activation',name:'native-reviewer'}}}]};
   };
 }
 const ending = (rest={}) => ({id:'native-child',runId:'native-run',stopReason:'completed',lastAssistantMessage:[{type:'text',text:JSON.stringify({complete:true,findings:[{severity:'high',file:'sample.mjs',line:1,message:'Subtraction replaced addition.',caveat:'Bounded diff only.'}],caveats:[]})}],...rest});
@@ -191,3 +191,22 @@ test('public schemas use valid installed storage unit names and bounded explicit
   assert.equal(storageDomainSpec.version, 1);
   assert.ok(operationSchema.properties.action.enum.includes('run_checks'));assert.equal(operationSchema.additionalProperties,false);assert.equal(Config['~standard'].validate({}).value.reviewerTool,'reviewer_astra');assert.ok(Config['~standard'].validate({checkTimeoutMs:0}).issues);
 });
+
+
+test('named rc.2 reviewer activation resolves to the guarded child', () => fixture(async root => {
+  const h = host(root); fastGit(h); await h.table.put('r', fakeReview(root)); nativeAdapter(h);
+  await h.engine.dispatch(args('start_review', { id:'r', confirm:true, fingerprint:'fp' })); await tick();
+  try { assert.equal(h.table.get('r').state, 'reviewing'); assert.equal(h.table.get('r').childId, 'native-child'); }
+  finally { h.engine.childEnded(ending()); await settle(h); await h.engine.close(); }
+}));
+
+
+test('mismatched named activation stops only its guarded child and rejects approval', () => fixture(async root => {
+  const h = host(root); fastGit(h); await h.table.put('r', fakeReview(root)); nativeAdapter(h);
+  h.ctx.subagents.resolveName = async () => 'unrelated-child';
+  await h.engine.dispatch(args('start_review', { id:'r', confirm:true, fingerprint:'fp' })); await tick();
+  try { assert.deepEqual(h.interrupted.map(call => call.id), ['native-child']); }
+  finally { h.engine.childEnded(ending({stopReason:'aborted', lastAssistantMessage:[]})); await settle(h); await h.engine.close(); }
+  assert.equal(h.table.get('r').state, 'failed');
+  assert.deepEqual(h.table.get('r').findings, []);
+}));

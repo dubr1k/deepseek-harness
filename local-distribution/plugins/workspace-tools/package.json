@@ -1,6 +1,6 @@
 {
   "name": "@dsh-local/dsh-workflow-tools",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "type": "module",
   "description": "Evidence-based handoffs, pre-commit reviews and research notes",
@@ -18,7 +18,7 @@
     "README.md"
   ],
   "dependencies": {
-    "zod": "4.4.3"
+    "zod": "4.6.6"
   },
   "scripts": {
     "build": "node build.mjs",

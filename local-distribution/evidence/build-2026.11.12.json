@@ -1,0 +1,75 @@
+{
+  "build": "stable-2026.11.12-1",
+  "desktop": "0.2.2-rc.2",
+  "codexCommit": "16b190656e65a202028334149ea1d42736b48767",
+  "evidenceDate": "2026-11-12",
+  "change": "Signed Desktop rc.2, upstream merge, Codex JSON SSE transport and provider-aligned Long Context budgets; updated native-review activation APIs and retired external runner dependency.",
+  "reproduction": {
+    "plainOriginal": "HTTP 200; response.completed",
+    "plainWithoutReasoningContent": "HTTP 200; response.completed",
+    "zstdOriginal": "HTTP 400; detail Bad Request",
+    "correctedAdapter": "Uncompressed JSON; HTTP 200; successful tool-call finish; returned tools not executed"
+  },
+  "localChecks": [
+    "508 Codex tests in 31 files passed on rc.2",
+    "Both direct/prepared SSE transport regressions fail before the fix and pass afterward",
+    "Codex Host/client typechecks, lint, production pack, package smoke and publint passed",
+    "Root build:artifacts and latest build:check passed",
+    "Root full test run: 56572 passed, 1 expected failure, 258 skipped; one SSH fixture failed due to a platform-dependent socket-length assumption",
+    "Replaced platform assumption with deterministic listener bind failure; all 19 SSH owner tests passed",
+    "24 Creator inspect-registry/subagent tests passed",
+    "Live keyless Creator Web snapshot refreshed for upstream tool changes and passed replay",
+    "Installer 3 tests, Workspace tools 15 tests, Project Passport 10 tests, Task templates 5 tests passed",
+    "Root lint passed with one existing unused-disable warning",
+    "doc-sync: 42 gates passed; repository-reference gate passed after replacing source hashes with maintained branch and release-tag references"
+  ],
+  "testFixtureRepair": "Three stale client-registration tests now include the existing image event, gallery and composer actions. Product UI is unchanged by this test repair.",
+  "privacy": "No private request payload, account material or Session identifiers included.",
+  "notRevalidated": [
+    "Full clean-machine install",
+    "Full production context saturation",
+    "All image model/quality/size combinations",
+    "Graphify semantic extraction",
+    "OpenDesign project operations",
+    "Full platform and CI matrix"
+  ],
+  "upstream": {
+    "source": "upstream/master",
+    "releaseTag": "dsh-v0.2.2-rc.2",
+    "integration": "merge-forward preserving Creator inspection fix and local distribution"
+  },
+  "liveChecks": {
+    "codexModels": {
+      "enabled": 7,
+      "longContextModes": [
+        false,
+        true
+      ],
+      "cases": 14,
+      "httpRequests": 70,
+      "runtime": "0.2.2-rc.2",
+      "result": "all passed",
+      "compaction": "stock Basic agent/pre-step listener, isolated reduced thresholds; production window saturation not tested"
+    },
+    "nativeRoles": {
+      "roles": [
+        "scout_luna",
+        "worker_terra",
+        "specialist_sol",
+        "reviewer_astra"
+      ],
+      "result": "All four actual child session logs ended successfully with ROLE_OK"
+    },
+    "workspaceTools": {
+      "result": "Real Desktop checks exit 1 for intentional 9 != 6 fixture; native reviewer reported the matching defect; review state reviewed and handoff persisted",
+      "isolation": "Temporary repository only; no project files modified by the workflow",
+      "identityRegression": "Mismatched named activation fails review and interrupts only its owned guarded child; negative test failed before repair and passed afterward",
+      "persistence": "Review and handoff reopened in Desktop after full quit/restart; saved Markdown exported through native save dialog and verified on disk"
+    },
+    "firecrawl": "Actual Desktop MCP scrape https://example.com returned HTTP 200 and Example Domain (cached response)",
+    "openDesign": "Actual Desktop MCP status succeeded and reported authenticated; no project data read or changed",
+    "graphify": "Guarded graphify --version returned 0.9.104; installed skill equals kit payload; explicit OpenRouter route retained",
+    "images": "Actual Desktop generated red circle and edited selected reference into blue circle; gallery displayed both results. Flare/Low requested 1024x1024 but backend returned 1536x1024; actual dimensions and warning displayed",
+    "panels": "Task templates, Project Passport, Workspace tools and per-image controls rendered in Desktop rc.2"
+  }
+}

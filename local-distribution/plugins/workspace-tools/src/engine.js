@@ -75,7 +75,7 @@ export class WorkflowEngine {
   async failOp(op, error) {
     if (op.terminal) return;
     op.failure = error.message || 'Operation failed.';
-    if (op.child && !op.child.ended) { this.ctx.subagents.interrupt(op.child.id, { kind: 'user', parentSessionId: this.table.get(op.id).sessionId }); return; }
+    if (op.child && !op.child.ended) { this.ctx.subagents.interrupt(op.child.id, { kind: 'user' }); return; }
     await this.finishOp(op, { state: 'failed', caveats: [op.failure] });
   }
   launch(op, operation) { const task = operation().catch(error => this.failOp(op, error)); this.track(task); return task; }
@@ -187,9 +187,9 @@ export class WorkflowEngine {
         this.assertOp(op);
         const result = await this.nativeScope.run(op, () => this.ctx.tools.execute({ agent, signal: op.controller.signal, calls: [{ type: 'tool-call', id: randomUUID(), name: this.config.reviewerTool, arguments: JSON.stringify({ cwd: project.root, description: `Review ${record.id}`, prompt }) }] }));
         const outcome = result.results[0]?.result;
-        if (!outcome || outcome.isError || typeof outcome.value?.subagentId !== 'string') throw new Error('Native reviewer could not start. No review approval was produced.');
-        const childId = outcome.value.subagentId;
-        if (op.child?.id !== childId || !op.child.guardInstalled) { this.ctx.subagents.interrupt(childId, { kind: 'user', parentSessionId: record.sessionId }); throw new Error('Read-only native child guard was not installed; review was stopped.'); }
+        if (!outcome || outcome.isError || outcome.value?.kind !== 'activation' || typeof outcome.value.name !== 'string') throw new Error('Native reviewer could not start. No review approval was produced.');
+        const childId = await this.ctx.subagents.resolveName(agent, outcome.value.name, op.controller.signal);
+        if (op.child?.id !== childId || !op.child.guardInstalled) throw new Error('Read-only native child guard was not installed; review was stopped.');
         if (!op.terminal && !op.child.ended) { this.assertOp(op); await this.updateOp(op, { childId, state: 'reviewing' }); }
       });
       return { id: record.id, state: 'starting-review' };
@@ -200,7 +200,7 @@ export class WorkflowEngine {
       const pending = this.jobs.get(record.id);
       if (pending) { pending.cancelled = true; pending.controller.abort(); }
       const childId = pending?.child?.id ?? record.childId;
-      if (childId && (pending || activeStates.has(record.state))) this.ctx.subagents.interrupt(childId, { kind: 'user', parentSessionId: record.sessionId });
+      if (childId && (pending || activeStates.has(record.state))) this.ctx.subagents.interrupt(childId, { kind: 'user' });
       await this.transition(record.id, current => ({ ...current, state: 'cancelled', endedAt: now(), caveats: [...current.caveats, 'Cancellation requested by the user; native settlement is awaited before cleanup. No passed review.'] }));
       return { id: record.id, state: 'cancelled' };
     }
@@ -227,10 +227,10 @@ export class WorkflowEngine {
     this.track(this.transition(op.id, current => ({ ...current, childId: info.id, nativeRunId: info.runId })));
     const child = info.local && this.ctx.agents.get(info.id);
     const tools = child?.ctx.get('tools');
-    if (!child || !tools) { op.failure = 'A local native reviewer with read-only tools is required.'; this.ctx.subagents.interrupt(info.id, { kind: 'user', parentSessionId: record.sessionId }); return; }
+    if (!child || !tools) { op.failure = 'A local native reviewer with read-only tools is required.'; this.ctx.subagents.interrupt(info.id, { kind: 'user' }); return; }
     const stop = child.ctx.effect(() => tools.guard(execution => {
       if (execution.name === 'skill') return undefined;
-      if (execution.name === 'send_message' && execution.arguments?.agent_id === record.sessionId) return undefined;
+      if (execution.name === 'send_message' && (execution.arguments?.agent === 'lead' || execution.arguments?.agent === record.sessionId)) return undefined;
       if (!['read', 'glob', 'grep'].includes(execution.name)) return 'Workflow review is read-only: only bounded local read/search is allowed.';
       const args = execution.arguments ?? {}; const target = args.file_path ?? args.path ?? record.projectPath;
       if (typeof target !== 'string') return 'Invalid read target.';
@@ -246,7 +246,7 @@ export class WorkflowEngine {
       return undefined;
     }));
     this.guards.set(info.id, stop); childRun.guardInstalled = true;
-    if (op.cancelled || this.disposed) this.ctx.subagents.interrupt(info.id, { kind: 'user', parentSessionId: record.sessionId });
+    if (op.cancelled || this.disposed) this.ctx.subagents.interrupt(info.id, { kind: 'user' });
   }
   childEnded(info) {
     const child = this.childRuns.get(info.runId) ?? this.childById.get(info.id);
@@ -268,7 +268,7 @@ export class WorkflowEngine {
     const operations = [...this.jobs.values()];
     for (const op of operations) {
       op.cancelled = true; op.controller.abort();
-      if (op.child && !op.child.ended) this.ctx.subagents.interrupt(op.child.id, { kind: 'user', parentSessionId: this.table.get(op.id).sessionId });
+      if (op.child && !op.child.ended) this.ctx.subagents.interrupt(op.child.id, { kind: 'user' });
     }
     // interrupt is not a join: authoritative native end + serialized persistence resolve each completion.
     await Promise.all(operations.map(op => op.completion));

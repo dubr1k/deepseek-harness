@@ -3,5 +3,5 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write local-distribution/plugins/workspace-tools/README.md
 /workspace-tools:
-  en: 6e7d7462b016c37e
-  zh: 8fc2692f8a32e303
+  en: 3c1f4628126ed0d9
+  zh: 2747dcd30ceef5ec
