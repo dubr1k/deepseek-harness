@@ -1,16 +1,16 @@
 {
-  "release": "stable-2026.11.12-1",
+  "release": "stable-2026.11.14-1",
   "platform": "macOS ARM64",
-  "desktop": "0.2.2-rc.2",
+  "desktop": "0.2.2-rc.3",
   "desktopKind": "original signed upstream app",
   "upstreamSource": "https://github.com/deepseek-ai/deepseek-harness",
   "codex": {
-    "version": "0.3.4-rc.3",
-    "commit": "16b190656e65a202028334149ea1d42736b48767",
-    "source": "sources/dsh-codex-auth-16b190656e65.tar.gz",
-    "package": "payload/dsh-codex-auth-0.3.4-rc.3-16b190656e65.tgz",
+    "version": "0.3.4-rc.4",
+    "commit": "f26c49178823a2d4ca444788d98e24ca7ff6b511",
+    "source": "sources/dsh-codex-auth-f26c49178823.tar.gz",
+    "package": "payload/dsh-codex-auth-0.3.4-rc.4-f26c49178823.tgz",
     "repository": "https://github.com/dubr1k/dsh-codex-auth",
-    "sha256": "7d7503e04239fb8e3b24cd81172cef7c13c1ab07bbc0f7c8c44d1fb0ef2f1c55"
+    "sha256": "0c2881ba9dde72a6ae624890130260a8413b19d73fb002656f307ef743a63a99"
   },
   "plugins": [
     {
@@ -31,7 +31,7 @@
     {
       "directory": "creator-inspect-hotfix",
       "name": "dsh-creator-inspect-hotfix",
-      "version": "0.2.2-rc.2-fix.1"
+      "version": "0.2.2-rc.3-fix.1"
     }
   ],
   "graphify": {
@@ -83,10 +83,10 @@
   "distributionRepository": "https://github.com/dubr1k/deepseek-harness/tree/release/codex-integrations/local-distribution",
   "sourceBase": "upstream/master",
   "baseArchive": {
-    "filename": "deepseek-harness-0.2.2-rc.2-mac-arm64.zip",
-    "originalUrl": "https://download.deepseek.com/dsh-desk/bin/mac-arm64/deepseek-harness-0.2.2-rc.2-mac-arm64.zip",
-    "sha512Base64": "SAKrGOp6y3vla/r7QG6hP+y3LfHeRKS3xQ+lxFBuiF7ezSt+dqkCedm9znqKqr7akCkLgag0GnC+yZhkAWL/+Q==",
+    "filename": "deepseek-harness-0.2.2-rc.3-mac-arm64.zip",
+    "originalUrl": "https://download.deepseek.com/dsh-desk/bin/mac-arm64/deepseek-harness-0.2.2-rc.3-mac-arm64.zip",
+    "sha512Base64": "UThWXKCqiiUnjFgij655+Gc1MgiSl+Ybl71jkQi48BhcBCN0XSDNT4GGmGJY3nvEqnkLT3LtWbL6wy6t/kRxIw==",
     "signature": "codesign --verify --deep --strict passed"
   },
-  "upstreamReleaseTag": "dsh-v0.2.2-rc.2"
+  "upstreamReleaseTag": "dsh-v0.2.2-rc.3"
 }

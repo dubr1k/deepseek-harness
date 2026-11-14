@@ -1,0 +1,59 @@
+{
+  "build": "stable-2026.11.14-1",
+  "desktop": "0.2.2-rc.3",
+  "codexCommit": "f26c49178823a2d4ca444788d98e24ca7ff6b511",
+  "evidenceDate": "2026-11-14",
+  "upstream": {
+    "source": "upstream/master",
+    "releaseTag": "dsh-v0.2.2-rc.3",
+    "note": "Fork source follows upstream master; installed Desktop remains the original signed rc.3 release.",
+    "sourceRef": "https://github.com/deepseek-ai/deepseek-harness/tree/master",
+    "desktopSourceRef": "https://github.com/deepseek-ai/deepseek-harness/tree/dsh-v0.2.2-rc.3"
+  },
+  "localChecks": [
+    "Codex: 510 tests in 31 files passed; rc.3 admission regression failed before adaptation and passed after it; mixed graphs and future rc.4 remain rejected",
+    "Codex: Host and Client typechecks, lint, production build, package smoke and publint passed",
+    "Project Passport: build and 10 tests passed",
+    "Workspace tools: build and 15 tests passed",
+    "Task templates: build and 5 tests passed",
+    "Installer: 3 tests passed",
+    "Creator inspect registry: 25 tests passed; keyless Web Creator snapshot passed",
+    "Root build:artifacts, latest build:check, lint and 43 doc-sync gates passed",
+    "Persistence inventory: 66 roots match 25 history records; no new persistence changes"
+  ],
+  "runtimePeers": {
+    "hostChecked": 39,
+    "failures": [],
+    "piAi": "1.3.0",
+    "clientOnlyNotExposedAsHostPackages": [
+      "@deepseek-ai/dsh-client-ui-primitives",
+      "@deepseek-ai/dsh-client-ui-slots",
+      "react"
+    ]
+  },
+  "liveChecks": {
+    "signedApplication": "Official ZIP SHA-512 matched feed; original vendor signature passed before installation and after installer and Desktop restart. No resigning.",
+    "pluginAdmission": "All five local plugins enabled in Desktop without compatibility errors. Codex 0.3.4-rc.4 and Creator hotfix 0.2.2-rc.3-fix.1 installed.",
+    "codex": "Actual Desktop openai-codex / gpt-6-astra completed a short prompt and a second turn with successful tool round trips; durable session events verified.",
+    "firecrawl": {
+      "url": "https://example.com",
+      "httpStatus": 200,
+      "title": "Example Domain",
+      "creditsUsed": 1,
+      "toolResultError": false
+    },
+    "openDesign": "Actual Desktop MCP status returned loggedIn true and sessionState authenticated; no project operations.",
+    "panels": "Task templates, Project Passport and Workspace tools rendered their controls in Desktop.",
+    "graphify": "CLI 0.9.104; managed adapter preflight passed after preserving the installed terminology correction; explicit OpenRouter routing retained."
+  },
+  "notRevalidated": [
+    "Full production context saturation and all seven model/context combinations on rc.3",
+    "Image generation/editing and full image parameter matrix on rc.3",
+    "New Creator plugin creation in installed Desktop; focused core tests and Web snapshot passed",
+    "Workspace tools full new reviewer/handoff/export scenario on rc.3; build/tests and panel rendering checked",
+    "Graphify semantic extraction",
+    "OpenDesign project operations",
+    "Clean-machine installation and full CI/platform matrix"
+  ],
+  "privacy": "No private request payloads, account details, credentials or session identifiers included."
+}
