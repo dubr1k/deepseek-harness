@@ -3,11 +3,11 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write README.md
 /deepseek-harness:
-  en: f68c4f080ce55ff2
-  zh: 88a76d7f7f0b260e
+  en: 64802398e9c7a534
+  zh: db143ddd2cd129ee
 /deepseek-harness/our-macos-build:
-  en: 198c73c13f2b9926
-  zh: 3e5696f72965a2da
+  en: d8e18c07efd7fc64
+  zh: 7b9b33a561071b72
 /deepseek-harness/developer-preview:
   en: 4ef4d8a71ac143f0
   zh: 1bfc3149ba8e5543

@@ -2,6 +2,8 @@
 
 English | [中文](README.zh.md)
 
+[Русский](README.ru.md)
+
 DeepSeek Harness (`dsh`) is an open-source agent harness developed by [DeepSeek AI](https://deepseek.com).
 
 It is built on an **everything-is-a-plugin** architecture and powered by [Cordis](https://github.com/cordiverse/cordis), whose design is described in [_A Programming Paradigm for Spatiotemporal Composability_](https://arxiv.org/abs/2608.25512).
@@ -10,9 +12,11 @@ Documentation: [https://deepseek-harness.github.io/deepseek-harness/](https://de
 
 ## Our macOS build
 
-This fork ships **stable-2026.11.11-1**, our pinned integration kit for the original signed **DSH Desktop 0.2.2-rc.1** on macOS ARM64. It includes our Codex login/Fast/quota and image updates, in-chat image creation/editing with per-request model, size and quality controls, native agent roles, Workspace tools, Project Passport, Task templates, Firecrawl MCP and the Graphify skill. “Stable” identifies this integration kit; upstream DSH remains a developer preview.
+This fork ships **stable-2026.11.18-1** for the original signed **DSH Desktop 0.2.2-rc.3** on macOS ARM64. The source tree is based on **Harness 0.2.2-rc.4**.
 
-Install from [local-distribution/README.ru.md](local-distribution/README.ru.md) (Русское описание сборки). Exact component pins are in [versions.json](local-distribution/versions.json). Image sizes are requests: the backend may return different dimensions. The source-launch instructions below describe upstream DSH and do not install this Desktop kit.
+The kit includes **Codex 0.3.4-rc.5** with ChatGPT sign-in, GPT-6.2 Astra and Sol, Fast mode, quota display, and in-chat image creation and editing. It also includes native agent roles, Workspace tools, Project Passport, Task templates, Firecrawl MCP integration, and the DSH adapter for Graphify **0.9.111**. The image service may return dimensions that differ from the requested size.
+
+Follow the [Desktop kit installation guide in Russian](local-distribution/README.ru.md). See the [pinned component versions](local-distribution/versions.json), [kit checksums](local-distribution/SHA256SUMS), and [verification results](local-distribution/evidence/build-2026.11.18.json).
 
 ## Developer preview
 
