@@ -150,15 +150,28 @@ const CACHE_CONTROL_FORMAT_GATE: Record<PiAiCacheControlFormat, true> = {
 /** The prompt-cache marker conventions a profile may name. */
 export const CACHE_CONTROL_FORMATS = Object.keys(CACHE_CONTROL_FORMAT_GATE) as readonly PiAiCacheControlFormat[]
 
+/** Optional JSON fields are omitted when absent. */
+type DefinedCompatFields<T> = T extends object
+  ? { [K in keyof T]: DefinedCompatFields<Exclude<T[K], undefined>> }
+  : T
+
+/** A JSON value accepted by the chat template configuration. */
+export type PiAiChatTemplateArg = string | number | boolean | null | {
+  /** Request-state value substituted before sending the argument. */
+  $var: PiAiChatTemplateVar
+  /** Omit the argument when reasoning is off. */
+  omitWhenOff?: boolean
+}
+
 /** The request-state placeholders a `chat_template_kwargs` value may name. */
-export type PiAiChatTemplateVar = Extract<ChatTemplateKwargValue, { $var: string }>['$var']
+export type PiAiChatTemplateVar = 'thinking.enabled' | 'thinking.effort' | 'thinking.budget'
 
 /** Drift gate over {@link PiAiChatTemplateVar}; a new upstream placeholder fails compilation until named. */
-const CHAT_TEMPLATE_VAR_GATE: Record<PiAiChatTemplateVar, true> = {
+const CHAT_TEMPLATE_VAR_GATE = {
   'thinking.enabled': true,
   'thinking.effort': true,
   'thinking.budget': true,
-}
+} as const satisfies Record<Extract<ChatTemplateKwargValue, { $var: string }>['$var'], true>
 
 /** The request-state placeholders a profile may name. */
 export const CHAT_TEMPLATE_VARS = Object.keys(CHAT_TEMPLATE_VAR_GATE) as readonly PiAiChatTemplateVar[]
@@ -254,6 +267,8 @@ const COMPLETIONS_COMPAT_GATE = {
   maxTokensField: 'offer',
   requiresToolResultName: 'offer',
   requiresAssistantAfterToolResult: 'offer',
+  requiresNonNullAssistantContent: 'withhold',
+  requiresToolsWithToolHistory: 'withhold',
   requiresThinkingAsText: 'offer',
   requiresReasoningContentOnAssistantMessages: 'offer',
   thinkingFormat: 'offer',
@@ -273,6 +288,7 @@ const COMPLETIONS_COMPAT_GATE = {
   supportsMidConvoSystemMessages: 'withhold',
   supportsMidConvoToolAdditions: 'withhold',
   sessionAffinityFormat: 'withhold',
+  promptCacheKeyMode: 'withhold',
 } as const satisfies Record<keyof OpenAICompletionsCompat, CompatDisposition>
 
 /** Disposition of every `OpenAIResponsesCompat` field; a drift gate like the one above. */
@@ -282,6 +298,7 @@ const RESPONSES_COMPAT_GATE = {
   supportsStrictMode: 'offer',
   supportsLongCacheRetention: 'offer',
   sessionAffinityFormat: 'withhold',
+  promptCacheKeyMode: 'withhold',
   supportsOpenAIGrammarTools: 'withhold',
   supportsAdditionalTools: 'withhold',
   supportsToolSearch: 'withhold',
@@ -303,6 +320,7 @@ const ANTHROPIC_COMPAT_GATE = {
   sessionAffinityFormat: 'withhold',
   supportsMidConvoSystemMessages: 'withhold',
   supportsMidConvoToolChanges: 'withhold',
+  supportsMessageThreads: 'withhold',
   supportsMidConvoEffort: 'withhold',
   allowedFallbackModels: 'withhold',
 } as const satisfies Record<keyof AnthropicMessagesCompat, CompatDisposition>
@@ -423,9 +441,9 @@ export interface PiAiCompatProfile {
    * entry or from pi-ai's own baseURL detection, neither of which resolution
    * can read, so kwargs set beside another format are sent nowhere.
    */
-  chatTemplateKwargs?: NonNullable<OpenAICompletionsCompat['chatTemplateKwargs']>
+  chatTemplateKwargs?: Record<string, PiAiChatTemplateArg>
   /** Arguments sent as `chat_template_args` under the `baseten` thinking format; `openai-completions`. */
-  chatTemplateArgs?: NonNullable<OpenAICompletionsCompat['chatTemplateArgs']>
+  chatTemplateArgs?: Record<string, PiAiChatTemplateArg>
   /** Alias for `thinkingTokenBudgetField: "thinking_token_budget"`; an explicit field wins. `openai-completions`. */
   supportsThinkingTokenBudget?: boolean
   /** Request field carrying the reasoning budget from `thinkingBudgets`; omitted unless configured. `openai-completions`. */
@@ -492,8 +510,8 @@ type UpstreamCompat = OpenAICompletionsCompat & OpenAIResponsesCompat & Anthropi
  * union would otherwise leave configuration silently behind.
  */
 export type EveryProfileFieldMatchesUpstream = AssertTrue<
-  PiAiCompatProfile extends Partial<Pick<UpstreamCompat, OfferedCompatField>>
-    ? Partial<Pick<UpstreamCompat, OfferedCompatField>> extends PiAiCompatProfile ? true : false
+  DefinedCompatFields<PiAiCompatProfile> extends DefinedCompatFields<Pick<UpstreamCompat, OfferedCompatField>>
+    ? DefinedCompatFields<Pick<UpstreamCompat, OfferedCompatField>> extends DefinedCompatFields<PiAiCompatProfile> ? true : false
     : false
 >
 

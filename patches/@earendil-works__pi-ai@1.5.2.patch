@@ -1,0 +1,33 @@
+diff --git a/dist/api/openai-completions.js b/dist/api/openai-completions.js
+--- a/dist/api/openai-completions.js
++++ b/dist/api/openai-completions.js
+@@ -435,6 +435,11 @@
+                             if (!block.name && name) {
+                                 block.name = name;
+                             }
++                            // Gemini OpenAI-compatible endpoints require this signature on replay.
++                            const geminiThoughtSignature = toolCall.extra_content?.google?.thought_signature;
++                            if (typeof geminiThoughtSignature === "string" && geminiThoughtSignature.length > 0) {
++                                block.thoughtSignature = geminiThoughtSignature;
++                            }
+                             let delta = "";
+                             const input = state.input;
+                             if (toolCall.function?.arguments && input.kind === "json") {
+@@ -1024,6 +1029,9 @@
+                             },
+                         };
+                     }
++                    const geminiThoughtSignature = tc.thoughtSignature && !parseLegacyEncryptedReasoningDetail(tc.thoughtSignature)
++                        ? tc.thoughtSignature
++                        : undefined;
+                     return {
+                         id: tc.id,
+                         type: "function",
+@@ -1031,6 +1039,7 @@
+                             name: tc.name,
+                             arguments: JSON.stringify(tc.arguments),
+                         },
++                        ...(geminiThoughtSignature && { extra_content: { google: { thought_signature: geminiThoughtSignature } } }),
+                     };
+                 });
+             }

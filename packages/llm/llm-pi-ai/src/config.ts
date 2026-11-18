@@ -14,7 +14,7 @@
  */
 import type { Volatile } from '@deepseek-ai/cordis'
 
-import type { CacheRetention, ChatTemplateKwargValue, ModelThinkingLevel, Provider, ThinkingBudgets, Transport } from '@earendil-works/pi-ai'
+import type { CacheRetention, ModelThinkingLevel, Provider, ThinkingBudgets, Transport } from '@earendil-works/pi-ai'
 import z from '@deepseek-ai/schemastery'
 import { credentialRef } from '@deepseek-ai/dsh-credentials'
 import type { CredentialRef } from '@deepseek-ai/dsh-credentials'
@@ -28,6 +28,7 @@ import {
   MAX_TOKENS_FIELDS,
   MODALITIES,
   PiAiCatalogError,
+  type PiAiChatTemplateArg,
   resolveRouteModels,
   SUPPORTED_THINKING_FORMATS,
   THINKING_LEVELS,
@@ -273,7 +274,7 @@ const thinkingBudgets = z.object({
  * thinking state, which makes a template-driven gateway configurable without
  * restating its template.
  */
-const chatTemplateKwarg: z<ChatTemplateKwargValue> = z.union([
+const chatTemplateKwarg: z<PiAiChatTemplateArg> = z.union([
   z.string(),
   z.number(),
   z.boolean(),

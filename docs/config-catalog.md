@@ -2104,7 +2104,7 @@ export interface Config extends ProtocolConfig, ModelListingConfig {
 
 - `inject`: `llm`
 - `refs`: `Api` (`@earendil-works/pi-ai`) · `CacheRetention` (`@earendil-works/pi-ai`) · `Model` (`@earendil-works/pi-ai`) · `ModelThinkingLevel` (`@earendil-works/pi-ai`) · `OpenAICompletionsCompat` (`@earendil-works/pi-ai`) · [`RetryPolicyConfig`](../packages/llm/llm/src/index.ts) · `ThinkingBudgets` (`@earendil-works/pi-ai`) · `Transport` (`@earendil-works/pi-ai`) · `Volatile` (`@deepseek-ai/cordis`)
-- `source`: [`packages/llm/llm-pi-ai/src/config.ts:251`](../packages/llm/llm-pi-ai/src/config.ts)
+- `source`: [`packages/llm/llm-pi-ai/src/config.ts:252`](../packages/llm/llm-pi-ai/src/config.ts)
 
 ```ts config-catalog
 /** Plugin configuration: the provider routes this instance owns. */
@@ -2326,9 +2326,9 @@ export interface PiAiCompatProfile {
    * entry or from pi-ai's own baseURL detection, neither of which resolution
    * can read, so kwargs set beside another format are sent nowhere.
    */
-  chatTemplateKwargs?: NonNullable<OpenAICompletionsCompat['chatTemplateKwargs']>
+  chatTemplateKwargs?: Record<string, PiAiChatTemplateArg>
   /** Arguments sent as `chat_template_args` under the `baseten` thinking format; `openai-completions`. */
-  chatTemplateArgs?: NonNullable<OpenAICompletionsCompat['chatTemplateArgs']>
+  chatTemplateArgs?: Record<string, PiAiChatTemplateArg>
   /** Alias for `thinkingTokenBudgetField: "thinking_token_budget"`; an explicit field wins. `openai-completions`. */
   supportsThinkingTokenBudget?: boolean
   /** Request field carrying the reasoning budget from `thinkingBudgets`; omitted unless configured. `openai-completions`. */
@@ -2379,8 +2379,19 @@ export type PiAiReasoningEfforts = Partial<Record<ModelThinkingLevel, string | n
 /** One reasoning-dispatch wire format a profile may name. */
 export type PiAiThinkingFormat = NonNullable<OpenAICompletionsCompat['thinkingFormat']>
 
+/** A JSON value accepted by the chat template configuration. */
+export type PiAiChatTemplateArg = string | number | boolean | null | {
+  /** Request-state value substituted before sending the argument. */
+  $var: PiAiChatTemplateVar
+  /** Omit the argument when reasoning is off. */
+  omitWhenOff?: boolean
+}
+
 /** The reasoning-budget field spellings pi-ai accepts. */
 export type PiAiThinkingTokenBudgetField = NonNullable<OpenAICompletionsCompat['thinkingTokenBudgetField']>
+
+/** The request-state placeholders a `chat_template_kwargs` value may name. */
+export type PiAiChatTemplateVar = 'thinking.enabled' | 'thinking.effort' | 'thinking.budget'
 ```
 <!-- END GENERATED config-catalog:@deepseek-ai/dsh-llm-pi-ai -->
 
