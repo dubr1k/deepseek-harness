@@ -10,9 +10,9 @@ Harness построен на [Cordis](https://github.com/cordiverse/cordis). Е
 
 ## Наш комплект для macOS
 
-Комплект **stable-2026.11.18-1** предназначен для оригинального подписанного приложения **DSH Desktop 0.2.2-rc.3** на Mac с Apple Silicon. Исходники в форке основаны на **Harness 0.2.2-rc.4**.
+Комплект **stable-2026.11.18-2** предназначен для оригинального подписанного приложения **DSH Desktop 0.2.2-rc.3** на Mac с Apple Silicon. Исходники в форке основаны на **Harness 0.2.2-rc.4**.
 
-Плагин **Codex 0.3.4-rc.5** добавляет вход через ChatGPT, модели GPT-6.2 Astra и Sol, режим Fast, отображение квот, создание и редактирование изображений в чате. В комплект также входят встроенные роли агентов, Workspace tools, Project Passport, Task templates, интеграция Firecrawl MCP и адаптер DSH для Graphify **0.9.111**. Размеры готового изображения могут отличаться от запрошенных.
+Плагин **Codex 0.3.4-rc.6** добавляет вход через ChatGPT, модели GPT-6.2 Astra и Sol, режим Fast, отображение квот, создание и редактирование изображений в чате. В комплект также входят встроенные роли агентов, Workspace tools, Project Passport, Task templates, интеграция Firecrawl MCP и адаптер DSH для Graphify **0.9.111**. Размеры готового изображения могут отличаться от запрошенных.
 
 [Установка комплекта Desktop](local-distribution/README.ru.md) · [Версии компонентов](local-distribution/versions.json) · [Контрольные суммы](local-distribution/SHA256SUMS) · [Результаты проверок](local-distribution/evidence/build-2026.11.18.json)
 

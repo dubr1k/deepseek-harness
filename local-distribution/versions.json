@@ -1,16 +1,16 @@
 {
-  "release": "stable-2026.11.18-1",
+  "release": "stable-2026.11.18-2",
   "platform": "macOS ARM64",
   "desktop": "0.2.2-rc.3",
   "desktopKind": "original signed upstream app",
   "upstreamSource": "https://github.com/deepseek-ai/deepseek-harness",
   "codex": {
-    "version": "0.3.4-rc.5",
-    "commit": "9fc34c6d8a10e53ef8c8432932fe8149b5aafeb1",
-    "source": "sources/dsh-codex-auth-9fc34c6d8a10.tar.gz",
-    "package": "payload/dsh-codex-auth-0.3.4-rc.5-9fc34c6d8a10.tgz",
+    "version": "0.3.4-rc.6",
+    "commit": "e4b2d9efa36eda397abf54012a1a8141b29977c5",
+    "source": "sources/dsh-codex-auth-e4b2d9efa36e.tar.gz",
+    "package": "payload/dsh-codex-auth-0.3.4-rc.6-e4b2d9efa36e.tgz",
     "repository": "https://github.com/dubr1k/dsh-codex-auth",
-    "sha256": "edabc1196cb16ebc536dc61c701c84220fd8a4963c2a5d517d56785d380da331"
+    "sha256": "40afae8aec30a6237e848260981a9e24ef75723f1151876b842729c46d188859"
   },
   "plugins": [
     {
@@ -89,5 +89,9 @@
     "signature": "codesign --verify --deep --strict passed"
   },
   "upstreamReleaseTag": "dsh-v0.2.2-rc.3",
-  "upstreamSourceReleaseTag": "dsh-v0.2.2-rc.4"
+  "upstreamSourceReleaseTag": "dsh-v0.2.2-rc.4",
+  "piAi": {
+    "forkBuild": "1.5.2",
+    "upstreamSignedDesktop": "1.3.0"
+  }
 }

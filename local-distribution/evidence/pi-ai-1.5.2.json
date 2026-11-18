@@ -1,0 +1,22 @@
+{
+  "release": "stable-2026.11.18-2",
+  "piAi": {
+    "forkBuild": "1.5.2",
+    "upstreamSignedDesktop": "1.3.0"
+  },
+  "codexPlugin": "0.3.4-rc.6",
+  "checks": [
+    "518 focused Harness tests across 24 files.",
+    "568 Codex tests across 31 files, Host and Client type checks, package smoke and publint.",
+    "Three focused keyless session replay tests.",
+    "GPT-6.2 Sol through ChatGPT OAuth in the updated source runtime read a fixture through a tool call and returned its contents.",
+    "GPT-6.2 Sol through ChatGPT OAuth completed a request with the upgraded Codex plugin on the installed 0.2.2-rc.3 CLI.",
+    "GPT-6.2 Astra also completed a request through ChatGPT OAuth in the updated source runtime.",
+    "The macOS ARM64 Desktop build carries pi-ai 1.5.2. Its ad-hoc signature passed recursive verification, and the Desktop Host started on an isolated profile and on the existing local profile.",
+    "GPT-6.2 Sol through the packaged Desktop CLI read a fixture through Codex and returned its contents.",
+    "The SDK desktop-context replay passed after the build completed."
+  ],
+  "limits": [
+    "The full snapshot run surfaced four failures reproduced at the previous release: the snapshot adapter allowlist, cordis-inspect-liveness, cordis-inspect-timeout and mcp-tool-loading."
+  ]
+}

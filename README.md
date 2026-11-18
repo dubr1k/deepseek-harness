@@ -12,9 +12,9 @@ Documentation: [https://deepseek-harness.github.io/deepseek-harness/](https://de
 
 ## Our macOS build
 
-This fork ships **stable-2026.11.18-1** for the original signed **DSH Desktop 0.2.2-rc.3** on macOS ARM64. The source tree is based on **Harness 0.2.2-rc.4**.
+This fork ships **stable-2026.11.18-2** for the original signed **DSH Desktop 0.2.2-rc.3** on macOS ARM64. The source tree is based on **Harness 0.2.2-rc.4**.
 
-The kit includes **Codex 0.3.4-rc.5** with ChatGPT sign-in, GPT-6.2 Astra and Sol, Fast mode, quota display, and in-chat image creation and editing. It also includes native agent roles, Workspace tools, Project Passport, Task templates, Firecrawl MCP integration, and the DSH adapter for Graphify **0.9.111**. The image service may return dimensions that differ from the requested size.
+The kit includes **Codex 0.3.4-rc.6** with ChatGPT sign-in, GPT-6.2 Astra and Sol, Fast mode, quota display, and in-chat image creation and editing. It also includes native agent roles, Workspace tools, Project Passport, Task templates, Firecrawl MCP integration, and the DSH adapter for Graphify **0.9.111**. The image service may return dimensions that differ from the requested size.
 
 Follow the [Desktop kit installation guide in Russian](local-distribution/README.ru.md). See the [pinned component versions](local-distribution/versions.json), [kit checksums](local-distribution/SHA256SUMS), and [verification results](local-distribution/evidence/build-2026.11.18.json).
 
