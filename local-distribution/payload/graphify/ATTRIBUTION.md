@@ -1,6 +1,6 @@
 # Sources and adaptation boundary
 
-This is an independently written local DSH instruction adapter. It does not vendor the Graphify implementation or replace the shared upstream skill. It is not endorsed as an official Graphify/DSH plugin. Original adapter examined graphifyy **0.9.72**; reconciled with **0.9.104** on 2026-11-08. AST build/update and query/path/explain were tested on a small fixture; semantic extraction was not tested.
+This is an independently written local DSH instruction adapter. It does not vendor the Graphify implementation or replace the shared upstream skill. It is not endorsed as an official Graphify/DSH plugin. Original adapter examined graphifyy **0.9.72**; reconciled with **0.9.111** on 2026-11-18. AST build/update and query/path/explain were tested on a small fixture; semantic extraction was not tested.
 
 Canonical project: https://github.com/Graphify-Labs/graphify . The active documentation branch examined was **v8**, not the outdated main-branch README. Documentation snapshot consulted: **b57cf9108ea3ae571f3e6b3f5dff7de900750127** (this identifies the consulted documentation tip, not a claim that the installed wheel was built from that exact commit).
 

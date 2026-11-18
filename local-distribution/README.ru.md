@@ -1,12 +1,12 @@
-# DeepSeek Harness — наш билд stable-2026.11.14-1
+# DeepSeek Harness — наш билд stable-2026.11.18-1
 
-Это интеграционный комплект для **macOS ARM64** на базе оригинального подписанного **DSH Desktop 0.2.2-rc.3**. «Stable» — название нашей закреплённой конфигурации; сам DSH остаётся developer preview. Ветка `release/codex-integrations` форка [dubr1k/deepseek-harness](https://github.com/dubr1k/deepseek-harness/tree/release/codex-integrations) содержит исходники базы и этот установочный комплект. Рабочее приложение использует подписанный upstream runtime и отдельно устанавливаемые плагины.
+Это интеграционный комплект для **macOS ARM64** на базе оригинального подписанного **DSH Desktop 0.2.2-rc.3**. «Stable» — название нашей закреплённой конфигурации; сам DSH остаётся developer preview. Ветка `release/codex-integrations` форка [dubr1k/deepseek-harness](https://github.com/dubr1k/deepseek-harness/tree/release/codex-integrations) содержит исходники Harness 0.2.2-rc.4 и этот установочный комплект. Рабочее приложение использует подписанный upstream runtime и отдельно устанавливаемые плагины.
 
 ## Что входит
 
 | Компонент | Состав |
 |---|---|
-| Codex 0.3.4-rc.4, наша ревизия | Вход через ChatGPT, модели Codex, Fast, квоты и генерация изображений |
+| Codex 0.3.4-rc.5, наша ревизия | Вход через ChatGPT, GPT-6.2 Astra и Sol, Fast, квоты и генерация изображений |
 | Изображения в чате | Галерея под ответом, открытие оригинала, фактические размеры и редактирование выбранного изображения |
 | Настройки каждого изображения | Create image в новой беседе и возле поля ввода; модель Sunburst / Flare / GPT Image 2, качество, размер; те же параметры возле Edit |
 | Обработка ошибок | Раздельные сообщения о модерации, авторизации, лимитах и недоступности backend |
@@ -17,7 +17,7 @@
 | Task templates 1.0.0 | Библиотека шаблонов запросов, [пример использования](docs/TASK-TEMPLATES.md) |
 | Creator Inspect rc.3 fix.1 | Исправление ответов Client Inspect в дочерних Creator-сессиях |
 | Firecrawl | MCP stdio, импорт существующего локального подключения |
-| Graphify 0.9.104 | Нативный навык DSH и отдельно устанавливаемый CLI; семантический маршрут OpenRouter |
+| Graphify 0.9.111 | Нативный навык DSH и отдельно устанавливаемый CLI; семантический маршрут OpenRouter |
 | OpenDesign Cloud / Local Codex | Шаблон подключения существующего локального MCP при наличии CLI и авторизации |
 
 Точные версии, ревизия Codex и имя установочного архива: [versions.json](versions.json). Исходники локальных плагинов находятся в `plugins/`, точный снимок исходников Codex — в `sources/`, готовый архив Codex и роли — в `payload/`. Лицензии сохранены в компонентах и архивах. Код Codex публикуется в [нашем форке](https://github.com/dubr1k/dsh-codex-auth); изменения предложены в [upstream PR #31](https://github.com/suntianc/dsh-codex-auth/pull/31).
@@ -43,7 +43,7 @@ Graphify использует явный маршрут `openrouter` → `https:
 
 ## Проверки и восстановление
 
-Проверки rc.3 и ограничения: [evidence/build-2026.11.14.json](evidence/build-2026.11.14.json). Результаты исправления SSE в rc.2: [evidence/build-2026.11.12.json](evidence/build-2026.11.12.json). Предыдущие проверки изображений: [evidence/build-2026.11.11.json](evidence/build-2026.11.11.json). Исторические проверки базовых ролей и MCP сохранены в `verification.json`; они не являются новым прогоном этого выпуска. Перенос на полностью чистую машину и новый семантический прогон Graphify не выполнялись. В Desktop rc.2 проверены Firecrawl scrape и авторизация OpenDesign Cloud; работа с проектами OpenDesign Cloud не проверялась.
+Проверки GPT-6.2 и исходников Harness rc.4: [evidence/build-2026.11.18.json](evidence/build-2026.11.18.json). Предыдущие проверки rc.3: [evidence/build-2026.11.14.json](evidence/build-2026.11.14.json). Результаты исправления SSE в rc.2: [evidence/build-2026.11.12.json](evidence/build-2026.11.12.json). Предыдущие проверки изображений: [evidence/build-2026.11.11.json](evidence/build-2026.11.11.json). Исторические проверки базовых ролей и MCP сохранены в `verification.json`; они не являются новым прогоном этого выпуска. Перенос на полностью чистую машину и новый семантический прогон Graphify не выполнялись. В Desktop rc.2 проверены Firecrawl scrape и авторизация OpenDesign Cloud; работа с проектами OpenDesign Cloud не проверялась.
 
 Для отката закройте DSH, сохраните текущий профиль отдельно и верните `~/.dsh/backups/before-codex-kit-<timestamp>` на место `~/.dsh/profiles/desktop`. Не заменяйте хранилища сессий и авторизации. Копия прежнего навыка Graphify при его наличии находится в `graphify-skill` внутри этой резервной копии. Порядок обновления базы: [docs/UPDATING.md](docs/UPDATING.md).
 

@@ -12,7 +12,7 @@ For an authorized AST-only build, `workdir=/ABS/project`:
 GRAPHIFY_NO_AUTO_REFRESH=1 GRAPHIFY_QUERY_LOG_DISABLE=1 PYTHONDONTWRITEBYTECODE=1 GRAPHIFY_FORCE=0 GRAPHIFY_OUT=graphify-out graphify extract '/ABS/project' --code-only
 ```
 
-This intentionally skips semantic documents/papers/media and must be described as a **code graph**, not a complete project knowledge graph. It can write caches, graph.json, analysis and manifest metadata. In 0.9.104 it does NOT by itself produce all of GRAPH_REPORT.md, community labels and HTML. No LLM extraction call is needed; that does not mean the host agent's work consumes zero tokens.
+This intentionally skips semantic documents/papers/media and must be described as a **code graph**, not a complete project knowledge graph. It can write caches, graph.json, analysis and manifest metadata. In 0.9.111 it does NOT by itself produce all of GRAPH_REPORT.md, community labels and HTML. No LLM extraction call is needed; that does not mean the host agent's work consumes zero tokens.
 
 For authorized code updates:
 
@@ -22,7 +22,7 @@ GRAPHIFY_NO_AUTO_REFRESH=1 GRAPHIFY_QUERY_LOG_DISABLE=1 PYTHONDONTWRITEBYTECODE=
 
 This is AST maintenance, not semantic re-extraction of docs/papers. Preserve mixed-graph semantic source evidence and report warnings. Never append `--force` or `--allow-partial` automatically to bypass shrink/corruption guards. Inspect existing outputs before an operation that may replace them, and retain a recoverable copy for substantial replacements.
 
-If a report/reclustering was requested without external model calls, first check the exact output path with native tools. **In 0.9.104 `--no-viz` DELETES an existing `graph.html`; it does not merely skip generation.** If that HTML exists, do not run this recipe without explicit authorization for its removal and a recoverable copy. Verify the resolved absolute deletion target first. Otherwise leave the existing artifact untouched and report the limitation; do not silently remove `--no-viz` either, because that generates/replaces HTML. Only with no existing HTML or authorized handling:
+If a report/reclustering was requested without external model calls, first check the exact output path with native tools. **In 0.9.111 `--no-viz` DELETES an existing `graph.html`; it does not merely skip generation.** If that HTML exists, do not run this recipe without explicit authorization for its removal and a recoverable copy. Verify the resolved absolute deletion target first. Otherwise leave the existing artifact untouched and report the limitation; do not silently remove `--no-viz` either, because that generates/replaces HTML. Only with no existing HTML or authorized handling:
 
 ```bash
 GRAPHIFY_NO_AUTO_REFRESH=1 GRAPHIFY_QUERY_LOG_DISABLE=1 PYTHONDONTWRITEBYTECODE=1 GRAPHIFY_FORCE=0 GRAPHIFY_OUT=graphify-out graphify cluster-only '/ABS/project' --graph '/ABS/project/graphify-out/graph.json' --no-label --no-viz
@@ -53,4 +53,4 @@ Use actual graph node identifiers/labels, not invented entities. Choose useful/d
 
 ## Finish honestly
 
-State which graph/root was used, whether it may be stale, exact source citations, outputs actually created, any skipped corpus portions and observed integrity warnings. On 0.9.104, AST extraction/update and query/path/explain were checked on a small local fixture. Memory save and reflection were previously checked on 0.9.72 and have not been revalidated on 0.9.104. This is not proof of whole-repository completeness, quality of semantic inference, or all future graph versions.
+State which graph/root was used, whether it may be stale, exact source citations, outputs actually created, any skipped corpus portions and observed integrity warnings. On 0.9.111, AST extraction/update and query/path/explain were checked on a small local fixture. Memory save and reflection were previously checked on 0.9.72 and have not been revalidated on 0.9.111. This is not proof of whole-repository completeness, quality of semantic inference, or all future graph versions.

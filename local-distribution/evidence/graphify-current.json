@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-11-08T18:54:20.712587+00:00",
-  "cliVersion": "0.9.104",
+  "checkedAt": "2026-11-18",
+  "cliVersion": "0.9.111",
   "package": "graphifyy",
   "executable": "~/.local/bin/graphify",
-  "dshAdapter": "0.9.104",
+  "dshAdapter": "0.9.111",
   "adapterFileHashes": {
-    "SKILL.md": "a5f562f06a2a9b1c00f9bf37551274cd733c0090135c03ee752fd8a67dec51f4",
-    "ATTRIBUTION.md": "e066a178dcb27adcfefca977cff30854ce236b366423984d20227e2e3f4f1133",
-    "references/operations.md": "0147eee67f13fe0057a962269d2f07ff6d4fbd50aff76d1f2f7a0aed5e361cce"
+    "SKILL.md": "ee650b2193c1f118668f7cb1d97c3e28d597755957f896a6e064547092003cbf",
+    "ATTRIBUTION.md": "9b2f82e875c00f86305d2b29112b570e81c3a5e4e5e37fac8c848f9efabfb4b7",
+    "references/operations.md": "09316377d9f908264c1107720692e22de0c6d68831469e2f690a5d805017f867"
   },
   "semanticProvider": {
     "name": "openrouter",
@@ -26,13 +26,13 @@
   ],
   "graphifyMcpConnected": false,
   "checked": [
-    "guarded CLI --version",
-    "installed package metadata",
-    "CLI provider show openrouter",
-    "installed DSH adapter compared with distribution payload"
+    "CLI --version",
+    "AST-only extract and update on a synthetic project",
+    "query, path and explain on the generated graph",
+    "cluster-only --no-label --no-viz and its existing HTML behavior",
+    "installed DSH adapter matched to distribution files"
   ],
   "limits": [
-    "No fresh semantic extraction or external model request.",
-    "Prior AST fixture checks are reported by installed adapter; not repeated here."
+    "Semantic extraction and project memory operations were outside the synthetic smoke."
   ]
 }

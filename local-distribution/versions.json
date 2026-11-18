@@ -1,16 +1,16 @@
 {
-  "release": "stable-2026.11.14-1",
+  "release": "stable-2026.11.18-1",
   "platform": "macOS ARM64",
   "desktop": "0.2.2-rc.3",
   "desktopKind": "original signed upstream app",
   "upstreamSource": "https://github.com/deepseek-ai/deepseek-harness",
   "codex": {
-    "version": "0.3.4-rc.4",
-    "commit": "f26c49178823a2d4ca444788d98e24ca7ff6b511",
-    "source": "sources/dsh-codex-auth-f26c49178823.tar.gz",
-    "package": "payload/dsh-codex-auth-0.3.4-rc.4-f26c49178823.tgz",
+    "version": "0.3.4-rc.5",
+    "commit": "9fc34c6d8a10e53ef8c8432932fe8149b5aafeb1",
+    "source": "sources/dsh-codex-auth-9fc34c6d8a10.tar.gz",
+    "package": "payload/dsh-codex-auth-0.3.4-rc.5-9fc34c6d8a10.tgz",
     "repository": "https://github.com/dubr1k/dsh-codex-auth",
-    "sha256": "0c2881ba9dde72a6ae624890130260a8413b19d73fb002656f307ef743a63a99"
+    "sha256": "edabc1196cb16ebc536dc61c701c84220fd8a4963c2a5d517d56785d380da331"
   },
   "plugins": [
     {
@@ -35,7 +35,7 @@
     }
   ],
   "graphify": {
-    "version": "0.9.104",
+    "version": "0.9.111",
     "integration": "native DSH skill + local CLI; not an MCP server",
     "skill": "payload/graphify",
     "package": "graphifyy",
@@ -88,5 +88,6 @@
     "sha512Base64": "UThWXKCqiiUnjFgij655+Gc1MgiSl+Ybl71jkQi48BhcBCN0XSDNT4GGmGJY3nvEqnkLT3LtWbL6wy6t/kRxIw==",
     "signature": "codesign --verify --deep --strict passed"
   },
-  "upstreamReleaseTag": "dsh-v0.2.2-rc.3"
+  "upstreamReleaseTag": "dsh-v0.2.2-rc.3",
+  "upstreamSourceReleaseTag": "dsh-v0.2.2-rc.4"
 }

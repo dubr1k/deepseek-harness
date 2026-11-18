@@ -5,7 +5,7 @@ description: "DSH-native Graphify adapter: query existing project knowledge grap
 
 # Graphify for DSH
 
-Locally authored instruction adapter, not an official DSH plugin or MCP bridge. Reviewed for Graphify 0.9.104; AST build/update and query/path/explain were checked on a small fixture. Semantic extraction remains separately unverified. Uses the existing CLI; does not replace the shared upstream skill. Native DSH system/developer instructions, permissions and the user's task take priority. Sources and differences: [ATTRIBUTION.md](ATTRIBUTION.md).
+Locally authored instruction adapter, not an official DSH plugin or MCP bridge. Reviewed for Graphify 0.9.111; AST build/update and query/path/explain were checked on a small fixture. Semantic extraction remains separately unverified. Uses the existing CLI; does not replace the shared upstream skill. Native DSH system/developer instructions, permissions and the user's task take priority. Sources and differences: [ATTRIBUTION.md](ATTRIBUTION.md).
 
 ## Choose the smallest useful action
 

@@ -1,0 +1,29 @@
+{
+  "build": "stable-2026.11.18-1",
+  "evidenceDate": "2026-11-18",
+  "desktop": "0.2.2-rc.3",
+  "codexPlugin": "0.3.4-rc.5",
+  "upstream": {
+    "sourceRelease": "https://github.com/deepseek-ai/deepseek-harness/tree/dsh-v0.2.2-rc.4",
+    "desktopFeed": "https://download.deepseek.com/dsh-desk/feeds/mac-arm64/nightly-mac.yml",
+    "desktopFeedVersion": "0.2.2-rc.3"
+  },
+  "checks": [
+    "Harness source build: 10 gates passed, including Host and Client aggregate checks.",
+    "Harness doc-sync: 43 gates passed. Repository lint and 85 focused Harness tests passed.",
+    "The Creator child Client inspection snapshot passed keyless replay against the rc.4 cordis_inspect tool.",
+    "Codex: 567 tests in 31 files, Host and Client typechecks, lint, build, package smoke and publint passed.",
+    "Project Passport: 10 tests. Workspace tools: 15 tests. Task templates: 5 tests. Installer: 3 tests.",
+    "Desktop and headless profiles installed the same Codex archive distributed in this kit. Original Desktop signature verified.",
+    "All four companion plugin pins matched the active Desktop manifest and installed package versions.",
+    "GPT-6.2 Astra and GPT-6.2 Sol appeared in the current Desktop model picker.",
+    "Both models returned the expected text over real ChatGPT OAuth in isolated rc.3 and npm rc.4 headless profiles.",
+    "Both models produced a durable automatic Basic compaction summary and completed a turn in an isolated rc.3 profile using reduced pressure thresholds.",
+    "Graphify CLI 0.9.111 and the matching DSH adapter passed AST extraction, update, query, path, explain and no-viz clustering on a synthetic project."
+  ],
+  "limits": [
+    "The macOS ARM64 update feed published Desktop rc.3 at the time of verification.",
+    "The new models' full production context windows and pricing tiers were outside this test.",
+    "Graphify semantic extraction, OpenDesign project operations and image generation were outside this test."
+  ]
+}
