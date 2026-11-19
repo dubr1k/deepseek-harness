@@ -1,0 +1,31 @@
+{
+  "release": "stable-2026.11.19-1",
+  "upstreamTag": "dsh-v0.2.2-rc.5",
+  "upstreamMasterSync": "https://github.com/deepseek-ai/deepseek-harness/pull/8736",
+  "codex": "0.3.4-rc.8",
+  "codexCommit": "476db25acff80c97b23abf962a4621aa6c98b792",
+  "macOSArm64": {
+    "signedDesktop": "Official ZIP SHA-512 matched the release feed. Strict signature verification passed, Team ID NAN929V4UM. Bundled pi-ai 1.3.0.",
+    "forkDesktop": "Local ad-hoc signature verified. Fork retains pi-ai 1.5.2, the Gemini replay patch and native Creator child inspection.",
+    "peers": "Both app archives supplied compatible versions for all 29 Codex Host peers and all 10 signed-kit Creator hotfix peers. The three client-only Codex peers were checked through the UI loading path.",
+    "codexInference": "GPT-6.2 Sol returned the requested marker on the signed Desktop CLI. GPT-6.2 Astra read a fixture with the read tool and returned its contents on the fork Desktop CLI.",
+    "ui": "Signed Desktop exposed Codex usage and Fast controls. On the fork, Codex rc.8 displayed quota, switched Fast on and back off, and opened Task templates, Workspace tools and Project Passport.",
+    "firecrawl": "Signed Desktop called firecrawl_scrape on https://example.com and returned Example Domain with HTTP 200.",
+    "graphify": "Graphify CLI 0.9.111 and DSH adapter preflight passed. Explicit OpenRouter configuration retained.",
+    "creator": "In a disposable signed Desktop profile, Creator queried Client Slots.listSubTree, created and installed a read-only local bundle, and invoked its rc5_smoke tool. The tool returned RC5."
+  },
+  "checks": [
+    "Harness build with all 10 gates and packaged ARM64 runtime smoke",
+    "760 focused Harness tests across 35 files",
+    "Creator live browser to child agent snapshot replay and 3 snapshot corpus checks",
+    "570 Codex tests, type checks, build, package smoke and publint",
+    "3 kit installer tests and 30 local plugin tests",
+    "43 documentation gates"
+  ],
+  "notExercised": [
+    "New Graphify semantic extraction",
+    "Image generation and editing",
+    "Full production-context compaction",
+    "Clean-machine installation"
+  ]
+}

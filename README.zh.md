@@ -12,11 +12,11 @@ DeepSeek Harness（`dsh`）是由 [DeepSeek AI](https://deepseek.com) 开发的�
 
 ## 我们的 macOS 构建
 
-此 fork 提供 **stable-2026.11.18-2** 集成套件，适用于 macOS ARM64 上的原始签名版 **DSH Desktop 0.2.2-rc.3**。仓库源码基于 **Harness 0.2.2-rc.4**。
+此 fork 提供 **stable-2026.11.19-1** 集成套件，适用于 macOS ARM64 上的原始签名版 **DSH Desktop 0.2.2-rc.5**。仓库源码基于 **Harness 0.2.2-rc.5**。
 
-套件包含 **Codex 0.3.4-rc.6**，支持使用 ChatGPT 登录、GPT-6.2 Astra 和 Sol、Fast 模式、配额显示以及在聊天中创建和编辑图像。套件还包含原生 agent 角色、Workspace tools、Project Passport、Task templates、Firecrawl MCP 集成，以及面向 Graphify **0.9.111** 的 DSH 适配器。图像服务返回的尺寸可能与请求不同。
+套件包含 **Codex 0.3.4-rc.8**，支持使用 ChatGPT 登录、GPT-6.2 Astra 和 Sol、Fast 模式、配额显示以及在聊天中创建和编辑图像。套件还包含原生 agent 角色、Workspace tools、Project Passport、Task templates、Firecrawl MCP 集成，以及面向 Graphify **0.9.111** 的 DSH 适配器。图像服务返回的尺寸可能与请求不同。
 
-请参阅[俄文 Desktop 套件安装指南](local-distribution/README.ru.md)、[组件固定版本](local-distribution/versions.json)、[套件校验和](local-distribution/SHA256SUMS)和[验证结果](local-distribution/evidence/build-2026.11.18.json)。
+请参阅[俄文 Desktop 套件安装指南](local-distribution/README.ru.md)、[组件固定版本](local-distribution/versions.json)、[套件校验和](local-distribution/SHA256SUMS)和[验证结果](local-distribution/evidence/build-2026.11.19.json)。
 
 ## 开发者预览
 
