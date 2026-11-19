@@ -2,13 +2,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 // Copy portable, version-pinned bundles into the target profile. The caller owns backup/rollback.
-export function installLocalPlugins(base, profile, manifest) {
+export function installLocalPlugins(base, profile, manifest, { nativeCreator = false } = {}) {
   const plugins = JSON.parse(fs.readFileSync(path.join(base, 'plugins.json'), 'utf8'));
   manifest.dependencies ??= {};
   manifest.dsh ??= {};
   manifest.dsh.profile ??= {};
   manifest.dsh.profile.bundles ??= [];
+  if (nativeCreator) {
+    delete manifest.dependencies['dsh-creator-inspect-hotfix'];
+    manifest.dsh.profile.bundles = manifest.dsh.profile.bundles.filter(name => name !== 'dsh-creator-inspect-hotfix');
+  }
   for (const plugin of plugins) {
+    if (nativeCreator && plugin.name === 'dsh-creator-inspect-hotfix') continue;
     if (!/^[a-z0-9-]+$/.test(plugin.directory)) throw new Error('Invalid plugin directory');
     const source = path.join(base, 'plugins', plugin.directory);
     const pkg = JSON.parse(fs.readFileSync(path.join(source, 'package.json'), 'utf8'));

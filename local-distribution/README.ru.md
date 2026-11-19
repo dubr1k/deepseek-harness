@@ -2,6 +2,8 @@
 
 Это интеграционный комплект для **macOS ARM64** на базе оригинального подписанного **DSH Desktop 0.2.2-rc.5**. «Stable» — название нашей закреплённой конфигурации; сам DSH остаётся developer preview. Ветка `release/codex-integrations` форка [dubr1k/deepseek-harness](https://github.com/dubr1k/deepseek-harness/tree/release/codex-integrations) содержит исходники Harness 0.2.2-rc.5 и этот установочный комплект. В сборке из исходников форка используется pi-ai 1.5.2. Подписанный Desktop из этого комплекта поставляется с pi-ai 1.3.0. Плагин Codex поддерживает обе версии.
 
+Готовое приложение форка для Apple Silicon доступно в [релизе macOS](https://github.com/dubr1k/deepseek-harness/releases/tag/fork-v0.2.2-rc.5). [Установка из DMG](docs/MACOS-FORK.ru.md).
+
 ## Что входит
 
 | Компонент | Состав |

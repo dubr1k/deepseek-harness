@@ -44,3 +44,18 @@ test('retiring the external Codex runner preserves unrelated packages and native
   assert.deepEqual(manifest.dependencies, { 'dsh-codex-auth':'file:codex.tgz', existing:'1.2.3' });
   assert.deepEqual(manifest.dsh.profile.bundles, ['existing','dsh-codex-auth']);
 });
+
+test('the fork uses its native Creator runner when updating an existing signed-kit profile', () => {
+  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'dsh-fork-kit-'));
+  try {
+    const manifest = {dependencies: {}, dsh: {profile: {bundles: []}}};
+    installLocalPlugins(base, profile, manifest);
+    assert.ok(manifest.dependencies['dsh-creator-inspect-hotfix']);
+    installLocalPlugins(base, profile, manifest, {nativeCreator: true});
+    assert.equal(manifest.dependencies['dsh-creator-inspect-hotfix'], undefined);
+    assert.ok(!manifest.dsh.profile.bundles.includes('dsh-creator-inspect-hotfix'));
+    assert.ok(manifest.dsh.profile.bundles.includes('@dsh-local/dsh-workflow-tools'));
+  } finally {
+    fs.rmSync(profile, {recursive: true, force: true});
+  }
+});

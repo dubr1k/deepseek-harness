@@ -5,7 +5,8 @@ import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
 import {execFileSync} from 'node:child_process';
 import {installLocalPlugins, mergeSettings, retireExternalCodexRunner} from './install-local-plugins.mjs';
-const app='/Applications/DeepSeek Harness.app';
+const forkDesktop = process.argv.includes('--fork-desktop');
+const app = forkDesktop ? path.resolve(path.dirname(process.execPath), '../..') : '/Applications/DeepSeek Harness.app';
 const executable=path.join(app,'Contents/MacOS/DeepSeek Harness');
 const resources=path.join(app,'Contents/Resources');
 const require=createRequire(path.join(resources,'app.asar/dsh/package.json'));
@@ -15,12 +16,23 @@ const schema=yaml.DEFAULT_SCHEMA.extend([new yaml.Type('tag:yaml.org,2002:js',{k
 const home=path.join(os.homedir(),'.dsh');
 const profile=path.join(home,'profiles/desktop');
 const base=path.dirname(fileURLToPath(import.meta.url));
-if(!fs.existsSync(path.join(profile,'package.json'))) throw new Error('Launch DSH once, then quit it before setup.');
-try { execFileSync('/usr/bin/pgrep',['-f',`${executable}($| --expose-internals .*dsh-desktop-host)`],{stdio:'pipe'}); throw new Error('Quit DSH before setup.'); } catch(e) { if(e.status!==1) throw e; }
+const processes = execFileSync('/bin/ps', ['-ax', '-o', 'pid=,command='], {encoding:'utf8'}).split('\n');
+for (const line of processes) {
+ const match = /^\s*(\d+)\s+(.*)$/.exec(line);
+ if (match && Number(match[1]) !== process.pid && (match[2] === executable || match[2].startsWith(executable + ' '))) {
+  throw new Error('Quit this Desktop application before setup.');
+ }
+}
 const versions=JSON.parse(fs.readFileSync(path.join(base,'versions.json'),'utf8'));
 const expected=versions.desktop;
 const installed=execFileSync('/usr/bin/plutil',['-extract','CFBundleShortVersionString','raw',path.join(app,'Contents/Info.plist')],{encoding:'utf8'}).trim();
 if(installed!==expected) throw new Error(`This kit requires DSH ${expected}; found ${installed}. Validate a new release before upgrading.`);
+if (forkDesktop) {
+ const metadata=require(path.join(resources,'app.asar/package.json'));
+ if (!metadata.dshBuildCommit || metadata.dshBuildDirty || require(path.join(resources,'app.asar/dsh/node_modules/@earendil-works/pi-ai/package.json')).version !== versions.piAi.forkBuild) throw new Error('This installer requires the packaged fork build.');
+ require('@deepseek-ai/dsh-app-boot').initProfile(profile,require('@deepseek-ai/dsh-official-bundles').PROFILE_TEMPLATES.web.bundles);
+}
+if(!fs.existsSync(path.join(profile,'package.json'))) throw new Error('Launch DSH once, then quit it before setup.');
 const backup=path.join(home,'backups',`before-codex-kit-${Date.now()}`);
 fs.cpSync(profile,backup,{recursive:true,dereference:false});
 try {
@@ -30,8 +42,15 @@ try {
  const role=path.join(profile,'created-plugins/dsh-codex-role-compat');fs.cpSync(path.join(payload,'dsh-codex-role-compat'),role,{recursive:true});
  const manifestFile=path.join(profile,'package.json');const manifest=JSON.parse(fs.readFileSync(manifestFile,'utf8'));
  manifest.dependencies??={};manifest.dependencies['dsh-codex-auth']=`file:${archive}`;manifest.dependencies['dsh-codex-role-compat']='link:./created-plugins/dsh-codex-role-compat';
+ if (forkDesktop) {
+  const relative = 'created-plugins/stable-kit/' + path.basename(archive, '.tgz');
+  const destination = path.join(profile, relative);
+  fs.mkdirSync(destination, {recursive:true});
+  execFileSync('/usr/bin/tar', ['-xzf', archive, '--strip-components', '1', '-C', destination]);
+  manifest.dependencies['dsh-codex-auth'] = 'link:./' + relative;
+ }
  retireExternalCodexRunner(manifest);
- installLocalPlugins(base,profile,manifest);
+ installLocalPlugins(base,profile,manifest,{nativeCreator:forkDesktop});
  const bundles=manifest.dsh.profile.bundles; if(!bundles.includes('dsh-codex-auth'))bundles.push('dsh-codex-auth');
  manifest.dsh.profile.bundles=bundles.filter(x=>x!=='@deepseek-ai/dsh-subagent-codex');
  fs.writeFileSync(manifestFile,JSON.stringify(manifest,null,2)+'\n');
